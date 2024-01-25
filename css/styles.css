@@ -1,0 +1,19 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+header{
+    width: 100%;
+    background-color: darkgoldenrod;
+    height: 100px;
+}
+
+footer{
+    width: 100%;
+    background-color: darkgoldenrod;
+    height: 100px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
