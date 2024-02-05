@@ -4,8 +4,7 @@
 }
 
 :root{
-    --mainFont: font-family: 'Inconsolata', monospace;
-    --secondFont: 'Sixtyfour', sans-serif;
+    
 }
 
 
@@ -13,6 +12,7 @@ body {
     background-color: black;
     color: blue;
     font-family: 'Inconsolata', monospace;
+    width: 100%;
 }
 
 header{
@@ -35,16 +35,10 @@ footer{
     height: 100px;
     bottom: 0;
     left: 0;
-    position: absolute;
-}
-
-#imageContainer{
-    background-color: white;
-    height: 400px;
-    display: flex;
-    flex-direction: row;
     
 }
+
+
 
 .header-container{
     width: 100%;
@@ -56,8 +50,7 @@ footer{
 }
 
 .logo img{
-    height: 80px;
-    display: flex;
+    height: 60px;
 
 }
 
@@ -76,8 +69,60 @@ li, a{
 }
 
 .nav-links li a{
-    background-color: darkgreen;
+
     color: black;
     padding-left: 40px;
     font-family: var(--secondFont);
+}
+
+.account img{
+    height: 40px;
+}
+
+
+ /* Hero Container */
+ .hero-container {
+    background: #3498db; 
+    color: #fff; 
+    padding: 80px; 
+    text-align: center;
+}
+
+/* Sale Items Container */
+.sale-items-container {
+    padding: 40px; 
+    text-align: center;
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px; 
+}
+
+.product-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
+
+.sale-items-container img{
+    width: 200px;
+}
+
+/* Footer Icons */
+.footer-icons {
+    background: #2c3e50; 
+    color: #fff; 
+    padding: 20px; 
+    text-align: center;
+}
+
+.footer-icons i {
+    font-size: 24px; 
+    margin: 0 10px; 
+}
+
+h2{
+    font-size: 30px;
 }
