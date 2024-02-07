@@ -18,47 +18,58 @@ async function fetchData(url) {
   }
 }
 
-// Function to display products on sale (appends)
-function displaySaleItems(products) {
-  for (const product of products) {
-    if (product.onSale === true) {
-      const productContainerDiv = document.createElement("div");
-
-      // Add a class to the newly created div
-      productContainerDiv.classList.add("product-container");
-
-      //create title element and sets its textcontent.
-      const title = document.createElement("h2");
-      title.textContent = product.title;
-
-      // Create img element and sets its src.
-      const productImg = document.createElement("img");
-      productImg.src = product.image;
-      productImg.alt = product.title;
-
-      // Create price element and sets it to the price attribute.
-      const productPrice = document.createElement("p");
-      productPrice.textContent = product.price;
-
-      // Create purchase button 
-      const purchaseButton = document.createElement("button");
-      purchaseButton.classList.add("purchase-button");
-      purchaseButton.textContent = "Purchase";
-     // Add event listener to button to get the id.
-      purchaseButton.addEventListener("click", function(){
-        const id = product.id;
-        console.log(id);
-      })
-
-      // Appends to the DOM
-      productContainerDiv.appendChild(title);
-      productContainerDiv.appendChild(productImg);
-      productContainerDiv.appendChild(productPrice);
-      productContainerDiv.appendChild(purchaseButton);
-      productContainer.appendChild(productContainerDiv);
-    }
+// Function that creates an element and sets an id to the element, can also call only the element type with the if condition.
+function createElementTypeId(elementType, elementId) {
+  const element = document.createElement(elementType);
+  if (elementId) {
+    element.id = elementId;
   }
 }
+
+
+
+
+
+// Function to display products on sale (appends)
+function displaySaleItems(products) {
+    for (const product of products) {
+      if (product.onSale) {
+        const { title, image, price, discountedPrice, id } = product;
+  
+        const productContainerDiv = document.createElement("div");
+        productContainerDiv.classList.add("product-container");
+  
+        const titleElement = document.createElement("h2");
+        titleElement.textContent = title;
+  
+        const productImg = document.createElement("img");
+        productImg.src = image;
+        productImg.alt = title;
+  
+        const productPrice = document.createElement("p");
+        productPrice.textContent = `Previous price: ${price}`;
+  
+        const discountedPriceElement = document.createElement("p"); 
+        discountedPriceElement.textContent = (price - discountedPrice).toFixed(2);
+  
+        const purchaseButton = document.createElement("button");
+        purchaseButton.classList.add("purchase-button");
+        purchaseButton.textContent = "Purchase";
+        purchaseButton.addEventListener("click", function () {
+          console.log(id);
+        });
+  
+        productContainerDiv.appendChild(titleElement);
+        productContainerDiv.appendChild(productImg);
+        productContainerDiv.appendChild(productPrice);
+        productContainerDiv.appendChild(discountedPriceElement);
+        productContainerDiv.appendChild(purchaseButton);
+  
+        productContainer.appendChild(productContainerDiv);
+      }
+    }
+  }
+  
 
 // Function to fetch sale items > then appends the data to the dom
 async function getAndDisplaySaleItems() {
@@ -77,3 +88,20 @@ async function getAndDisplaySaleItems() {
 
 // Execute the function to get and display sale items
 getAndDisplaySaleItems();
+
+// Hamburger menu
+
+function hamburgerMenu() {
+  const getIconsContainer = document.querySelector(".icons-container");
+  const hamburgerMenuContainer = document.createElement("hamburgerMenuContainer");
+  const hamburgerMenuIcon = document.createElement("i");
+  hamburgerMenuIcon.classList.add("fa-solid", "fa-bars");
+  hamburgerMenuIcon.id = "hamburgerMenuIcon";
+  const hamburgerButton = document.createElement("a");
+
+  getIconsContainer.appendChild(hamburgerMenuContainer);
+  hamburgerMenuContainer.appendChild(hamburgerButton);
+  hamburgerButton.appendChild(hamburgerMenuIcon);
+}
+
+hamburgerMenu();
