@@ -23,6 +23,7 @@ header{
     background-color: darkgoldenrod;
     height: 100px;
     margin: 0 auto;
+    background: #2c3e50; 
 }
 
 main{
@@ -43,7 +44,6 @@ a {
 
 footer{
     width: 100%;
-    background-color: darkgoldenrod;
     height: 100px;
     bottom: 0;
     left: 0;
@@ -101,7 +101,7 @@ li, a{
 }
 
 /* Sale Items Container */
-.sale-items-container {
+.items-container {
     padding: 40px; 
     text-align: center;
     display: grid;
@@ -162,9 +162,9 @@ li, a{
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    max-width: 800px; /* Adjust max-width as needed */
+    max-width: 800px; 
     height: 100%;
-    padding: 0 20px; /* Add padding for better spacing */
+    padding: 0 20px; 
     border: solid white;
 }
 
