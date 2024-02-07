@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
 *{
     box-sizing: border-box;
 
 }
 
 :root{
-    
+    --main-font-family: 'League Spartan', sans-serif;
 }
 
 
@@ -13,12 +15,14 @@ body {
     color: blue;
     font-family: 'Inconsolata', monospace;
     width: 100%;
+    font-family: var(--main-font-family);
 }
 
 header{
     width: 100%;
     background-color: darkgoldenrod;
     height: 100px;
+    margin: 0 auto;
 }
 
 main{
@@ -26,8 +30,16 @@ main{
     padding-right: 40px;
     height: 100%;
     width: 100%;
+    
 
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 
 footer{
     width: 100%;
@@ -35,6 +47,8 @@ footer{
     height: 100px;
     bottom: 0;
     left: 0;
+    position: absolute;
+    
     
 }
 
@@ -46,7 +60,8 @@ footer{
     display: flex;
     justify-content: space-between;
     padding: 10px 50px 10px;
-    margin: auto;
+    align-items: center;
+
 }
 
 .logo img{
@@ -75,9 +90,6 @@ li, a{
     font-family: var(--secondFont);
 }
 
-.account img{
-    height: 40px;
-}
 
 
  /* Hero Container */
@@ -92,23 +104,112 @@ li, a{
 .sale-items-container {
     padding: 40px; 
     text-align: center;
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px; 
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px;
+    box-shadow: 0 0 2px #ccc;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .product-container {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: var(--product-card-background-color);
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.2s;
+    margin: 10px;
+    box-shadow: 0 0 2px #ccc;
+    max-width: 200px;
+}
+
+.product-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 5px #ccc;
+}
+
+.product-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product-discounted-price {
+    color: #00a65a; /* Green color for discounted price */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-regular-price {
+    text-decoration: line-through;
+    color: #999; /* Gray color for regular price */
 }
 
 
-.sale-items-container img{
-    width: 200px;
+/* Product page HTML file */
+/* product-page.css */
+
+.product-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 800px; /* Adjust max-width as needed */
+    height: 100%;
+    padding: 0 20px; /* Add padding for better spacing */
+    border: solid white;
 }
+
+.product-page-image img {
+    max-width: 300px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.product-page-details {
+    text-align: left;
+}
+
+.product-page-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-page-description {
+    margin-bottom: 20px;
+}
+
+.product-page-price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.add-to-cart-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}
+/* ----------------------------------*/ 
+
+
 
 /* Footer Icons */
 .footer-icons {
@@ -116,6 +217,7 @@ li, a{
     color: #fff; 
     padding: 20px; 
     text-align: center;
+    height: 100%;
 }
 
 .footer-icons i {
@@ -125,4 +227,41 @@ li, a{
 
 h2{
     font-size: 30px;
+}
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.my-account i{
+    display: flex;
+    justify-content: center;
+}
+
+.my-account p {
+    display: flex;
+    font-size: 14px;
+}
+
+.hamburgerMenuContainer{
+    display: none;
+}
+
+#hamburgerMenuIcon{
+    display: none;
+}
+
+
+@media (max-width: 1100px) {
+    #hamburgerMenuIcon {
+        display: block;
+        
+    }
+
+    .nav-links{
+        display: none;
+    }
+
 }
