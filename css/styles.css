@@ -2,6 +2,7 @@
 
 *{
     box-sizing: border-box;
+    margin: 0;
 
 }
 
@@ -11,7 +12,7 @@
 
 
 body {
-    background-color: #798478;
+    background-color: #3A2A53;
     color: black;
     font-family: 'Inconsolata', monospace;
     width: 100%;
@@ -19,8 +20,6 @@ body {
 }
 
 header{
-    width: 100%;
-    height: 100px;
     
     background: #2c3e50; 
 }
@@ -44,9 +43,8 @@ a {
 footer{
     width: 100%;
     height: 100px;
-    bottom: 0;
-    left: 0;
-    position: absolute;
+    
+
     
     
 }
@@ -74,28 +72,44 @@ li, a{
     font-family: var(--secondFont);
 }
 
-.nav-links{
+.nav-links {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    list-style: none;
+    padding: 0;
 }
 
-.nav-links li a{
+.nav-links li {
+    margin: 0 10px;
+}
 
+.nav-links li a {
     color: black;
-    padding-left: 40px;
+    text-decoration: none;
     font-family: var(--secondFont);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background-color: #f0f0f0;
 }
 
 
 
  /* Hero Container */
  .hero-container {
-    background: #3498db; 
-    color: #fff; 
-    padding: 80px; 
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container img{
+    height: 400px;
+    width: 100%;
 }
 
 /* Sale Items Container */
@@ -105,10 +119,23 @@ li, a{
     display: grid;
     grid-template-columns: auto auto auto auto;
     gap: 10px;
-    box-shadow: 0 0 2px #ccc;
+    background-color: #3A2A53;
     margin: 0 auto;
     justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Adjust the values as needed */
+    max-width: 900px;
 }
+
+.sale-text {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #fff;
+}
+
 
 .product-container {
     display: flex;
@@ -232,7 +259,6 @@ h2{
 .icons-container {
     display: flex;
     align-items: center;
-    height: 100%;
 }
 
 .my-account {
@@ -251,13 +277,18 @@ h2{
     font-size: 20px;
 }
 
+.my-account i{
+    margin-left: 10px;
+}
+
 .shopping-cart{
     font-size: 30px;
-    color: #000000;
+    color: #00ff1a; 
 }
 
 .shopping-cart p {
     font-weight: 500;
+    font-size: 20px;
 }
 
 
