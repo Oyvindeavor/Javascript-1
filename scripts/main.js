@@ -7,11 +7,9 @@ const productContainer = document.querySelector(".sale-items-container");
 async function fetchData(url) {
   try {
     const response = await fetch(url);
-    // if response is not OK throw a new error
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    // Return the data in json.
     return response.json();
   } catch (error) {
     console.error("Error fetching data from API:", error.message);
@@ -26,50 +24,69 @@ function createElementTypeId(elementType, elementId) {
   }
 }
 
+function getId(){
 
+}
 
 
 
 // Function to display products on sale (appends)
 function displaySaleItems(products) {
-    for (const product of products) {
+  for (const product of products) {
       if (product.onSale) {
-        const { title, image, price, discountedPrice, id } = product;
-  
-        const productContainerDiv = document.createElement("div");
-        productContainerDiv.classList.add("product-container");
-  
-        const titleElement = document.createElement("h2");
-        titleElement.textContent = title;
-  
-        const productImg = document.createElement("img");
-        productImg.src = image;
-        productImg.alt = title;
-  
-        const productPrice = document.createElement("p");
-        productPrice.textContent = `Previous price: ${price}`;
-  
-        const discountedPriceElement = document.createElement("p"); 
-        discountedPriceElement.textContent = (price - discountedPrice).toFixed(2);
-  
-        const purchaseButton = document.createElement("button");
-        purchaseButton.classList.add("purchase-button");
-        purchaseButton.textContent = "Purchase";
-        purchaseButton.addEventListener("click", function () {
-          console.log(id);
-        });
-  
-        productContainerDiv.appendChild(titleElement);
-        productContainerDiv.appendChild(productImg);
-        productContainerDiv.appendChild(productPrice);
-        productContainerDiv.appendChild(discountedPriceElement);
-        productContainerDiv.appendChild(purchaseButton);
-  
-        productContainer.appendChild(productContainerDiv);
+          const { title, image, price, discountedPrice, id } = product;
+
+          // Creating the product container 
+          const productContainer = document.createElement("div");
+          productContainer.classList.add("product-container");
+
+          // Creating title
+          const productTitle = document.createElement("h2");
+          productTitle.textContent = title;
+          productTitle.classList.add("product-title")
+
+          // Creating Image 
+          const productImg = document.createElement("img");
+          productImg.src = image;
+          product.alt = title;
+
+          // Standard price
+          const standardPrice = document.createElement("p");
+          standardPrice.textContent = price;
+          standardPrice.classList.add("product-regular-price")
+
+          // Discounted price
+          const discountPrice = document.createElement("p");
+          discountPrice.textContent = discountedPrice;
+          discountPrice.classList.add("product-discounted-price")
+
+          // Product Id
+         let productId;
+         productId = id;
+
+         // Create anchor element 
+         const anchorElement = document.createElement("a");
+         anchorElement.href = `product/index.html?productTitle=${productTitle}`;
+
+         // Append the product container 
+         document.querySelector(".items-container").appendChild(productContainer);
+
+         //append the rest
+         productContainer.appendChild(anchorElement);
+         anchorElement.appendChild(productImg)
+         anchorElement.appendChild(productTitle)
+         productContainer.appendChild(standardPrice)
+         productContainer.appendChild(discountPrice)
+         
+
+
+
+          
       }
-    }
   }
-  
+}
+
+
 
 // Function to fetch sale items > then appends the data to the dom
 async function getAndDisplaySaleItems() {
@@ -89,19 +106,4 @@ async function getAndDisplaySaleItems() {
 // Execute the function to get and display sale items
 getAndDisplaySaleItems();
 
-// Hamburger menu
 
-function hamburgerMenu() {
-  const getIconsContainer = document.querySelector(".icons-container");
-  const hamburgerMenuContainer = document.createElement("hamburgerMenuContainer");
-  const hamburgerMenuIcon = document.createElement("i");
-  hamburgerMenuIcon.classList.add("fa-solid", "fa-bars");
-  hamburgerMenuIcon.id = "hamburgerMenuIcon";
-  const hamburgerButton = document.createElement("a");
-
-  getIconsContainer.appendChild(hamburgerMenuContainer);
-  hamburgerMenuContainer.appendChild(hamburgerButton);
-  hamburgerButton.appendChild(hamburgerMenuIcon);
-}
-
-hamburgerMenu();
