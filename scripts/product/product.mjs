@@ -1,4 +1,9 @@
+// Fetch 
 import { api_url, fetchData } from "../utils/fetchdata.mjs";
+
+// Add class to element, create class.
+import { addClass } from "../utils/addclass.mjs";
+import { createElement } from "../utils/createelement.mjs";
 
 // Gets the ID from the url
 function getIdFromUrl() {
@@ -63,13 +68,3 @@ function displayProduct(product) {
   }
 }
 
-// Adds a class to an element
-function addClass(element, className) {
-  element.classList.add(className);
-  return element;
-}
-
-// Creates Element
-function createElement(element) {
-  return document.createElement(element);
-}
