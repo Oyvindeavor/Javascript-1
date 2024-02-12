@@ -12,18 +12,7 @@ function getIdFromUrl() {
   return productId;
 }
 
-async function getAndDisplayProduct() {
-  try {
-    const productId = getIdFromUrl();
-    const product = await fetchData(`${api_url}/${productId}`);
-    displayProduct(product);
-  } catch (error) {
-    console.error("Error fetching the data, error code: ", error);
-  }
-}
-
-getAndDisplayProduct();
-
+// Creates and appends product
 function displayProduct(product) {
   const productContainer = addClass(createElement("div"), "product-page-container");
 
@@ -68,3 +57,14 @@ function displayProduct(product) {
   }
 }
 
+async function getAndDisplayProduct() {
+  try {
+    const productId = getIdFromUrl();
+    const product = await fetchData(`${api_url}/${productId}`);
+    displayProduct(product);
+  } catch (error) {
+    console.error("Error fetching the data, error code: ", error);
+  }
+}
+
+getAndDisplayProduct();
