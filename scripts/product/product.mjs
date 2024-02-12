@@ -1,60 +1,14 @@
-// Fetch 
+// Fetch
 import { api_url, fetchData } from "../utils/fetchdata.mjs";
 
 // Add class to element, create class.
-import { addClass } from "../utils/addclass.mjs";
-import { createElement } from "../utils/createelement.mjs";
+import { displayProduct } from "../utils/domUtils.mjs";
 
 // Gets the ID from the url
 function getIdFromUrl() {
   const filterUrl = new URLSearchParams(window.location.search);
   const productId = filterUrl.get("productId");
   return productId;
-}
-
-// Creates and appends product
-function displayProduct(product) {
-  const productContainer = addClass(createElement("div"), "product-page-container");
-
-  const productImageContainer = addClass(createElement("div"), "product-page-image");
-
-  const productImg = createElement("img");
-  productImg.src = product.image;
-  productImg.alt = product.title;
-  productImageContainer.appendChild(productImg);
-
-  const productDetails = addClass(createElement("div"), "product-page-details");
-
-  const productTitle = addClass(createElement("h1"), "product-page-title");
-  productTitle.textContent = product.title;
-  productDetails.appendChild(productTitle);
-
-  const productDescription = addClass(createElement("p"), "product-page-description");
-  productDescription.textContent = product.description;
-
-  productDetails.appendChild(productDescription);
-
-  const productPrice = addClass(createElement("p"), "product-page-price");
-  productPrice.textContent = product.price;
-
-  productDetails.appendChild(productPrice);
-
-  const addToCartButton = addClass(createElement("button"), "add-to-cart-btn");
-  addToCartButton.textContent = "Add to Cart";
-
-  productDetails.appendChild(addToCartButton);
-
-  productContainer.appendChild(productImageContainer);
-
-  productContainer.appendChild(productDetails);
-
-  // Append product container to the <main> element
-  const mainElement = document.querySelector("main");
-  if (mainElement) {
-    mainElement.appendChild(productContainer);
-  } else {
-    console.error("<main> element not found.");
-  }
 }
 
 async function getAndDisplayProduct() {
