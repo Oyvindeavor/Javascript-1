@@ -1,31 +1,29 @@
 import { api_url, fetchData } from "../utils/fetchdata.mjs";
+import { addClass } from "../utils/addclass.mjs";
+import { createElement } from "../utils/createelement.mjs";
 
 function displayAllProducts(products) {
   for (const product of products) {
     const { title, image, price, discountedPrice, id } = product;
     // Creating the product container
-    const productContainer = document.createElement("div");
-    productContainer.classList.add("product-container");
+    const productContainer = addClass(createElement("div"), "product-container");
 
     // Creating title
-    const productTitle = document.createElement("h2");
+    const productTitle = addClass(createElement("h2"), "product-title"); 
     productTitle.textContent = title;
-    productTitle.classList.add("product-title");
 
     // Creating Image
-    const productImg = document.createElement("img");
+    const productImg = createElement("img");
     productImg.src = image;
     product.alt = title;
 
     // Standard price
-    const standardPrice = document.createElement("p");
+    const standardPrice = addClass(createElement("p"), "product-regular-price");
     standardPrice.textContent = price;
-    standardPrice.classList.add("product-regular-price");
 
     // Discounted price
-    const discountPrice = document.createElement("p");
+    const discountPrice = addClass(createElement("p"), "product-discounted-price");
     discountPrice.textContent = discountedPrice;
-    discountPrice.classList.add("product-discounted-price");
 
     // Product Id
     let productId;
