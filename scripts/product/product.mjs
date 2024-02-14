@@ -21,4 +21,6 @@ async function getAndDisplayProduct() {
   }
 }
 
+
 getAndDisplayProduct();
+
