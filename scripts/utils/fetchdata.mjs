@@ -16,3 +16,4 @@ async function fetchData(url) {
 }
 
 export { fetchData, api_url };
+
