@@ -4,7 +4,9 @@ import { createClass } from "../utils/domUtils.mjs";
 import { createElement } from "../utils/domUtils.mjs";
 
 
-
+/**
+ * Gets and display all products from the api and creates co
+ */
 async function getAndDisplayAllProducts() {
     try {
       const allProducts = await fetchData(api_url);
@@ -16,6 +18,7 @@ async function getAndDisplayAllProducts() {
   
   getAndDisplayAllProducts();
   
+  // Filter by genre 
   async function getProductsByGenre(genre) {
     try {
         const productGenre = await fetchData(api_url);
@@ -26,6 +29,7 @@ async function getAndDisplayAllProducts() {
     }
 }
 
+// Display the products by genre
 async function displayProductsByGenre(genre) {
     try {
         const filteredProducts = await getProductsByGenre(genre);
@@ -37,11 +41,11 @@ async function displayProductsByGenre(genre) {
 }
   
   
-  
+// Creates categoryButtons by passing in 
   async function createCategoryButtons() {
       try {
           const productGenre = await fetchData(api_url);
-          const uniqueGenres = [...new Set(productGenre.map(product => product.genre))]; // Extract unique genres
+          const uniqueGenres = [...new Set(productGenre.map(product => product.genre))]; 
           const categoryButtonsContainer = document.querySelector(".category-buttons");
   
           for (let genre of uniqueGenres) {
@@ -54,7 +58,7 @@ async function displayProductsByGenre(genre) {
               });
           }
       } catch (error) {
-          console.error("Error", error);
+          console.error("Could not create category buttons :", error);
       }
   }
   
