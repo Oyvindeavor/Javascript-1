@@ -1,4 +1,4 @@
-
+import { addToCart } from "./Cart.mjs";
 
 // Creates a class to an element use this with createElement()
 export function createClass(element, className) {
@@ -40,9 +40,8 @@ export function displayProduct(product) {
 
   const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
   addToCartButton.textContent = "Add to Cart";
-  addToCartButton.addEventListener("click", function(){
-    console.log("button is clicked")
-  })
+  
+
 
   productDetails.appendChild(addToCartButton);
 
@@ -107,7 +106,7 @@ export function displayProducts(products) {
 export function displaySaleItems(products) {
   for (const product of products) {
     if (product.onSale) {
-      const { title, image, price, discountedPrice, id, genre } = product;
+      const { title, image, price, discountedPrice, id } = product;
 
       // Creating the product container
       const productContainer = document.createElement("div");
