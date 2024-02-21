@@ -145,7 +145,6 @@ function createCheckoutButton() {
     const checkoutButton = createElement("button");
     checkoutButton.classList.add("checkout-btn");
     checkoutButton.textContent = "Checkout";
-    if ()
     checkoutButton.addEventListener('click', function() {
         // Navigate to the confirmation page
         window.location.href = './confirmation/index.html';
