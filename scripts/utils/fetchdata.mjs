@@ -22,3 +22,17 @@ export async function fetchData(url) {
 
 
 
+// This is the function to get items from the API
+export async function getProducts() {
+  try {
+    showLoadingSpinner(); // Show loading spinner while fetching data
+    const products = await fetchData(api_url);
+    hideLoadingSpinner(); // Hide loading spinner after data is fetched
+    return products;
+  } catch (error) {
+    hideLoadingSpinner(); // Hide loading spinner in case of error
+    console.error("Error fetching products:", error);
+    return []; // Return an empty array if there's an error
+  }
+}
+
