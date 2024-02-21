@@ -1,217 +1,198 @@
-
 import { createElement } from "../utils/domUtils.mjs";
-import {  getCartItemsFromStorage, updateCartInStorage } from "../utils/Cart.mjs";
+import { getCartItemsFromStorage, updateCartInStorage } from "../utils/Cart.mjs";
 import { getProducts } from "../utils/fetchdata.mjs";
 import { cartCounter } from "../utils/Cart.mjs";
-
+import { updateCartIcon } from "../utils/Cart.mjs";
 
 export async function createCartItems() {
-    const products = await getProducts();
-    const cartItemsData = await getCartItemsFromStorage();
-    const mainElement = document.querySelector("main");
+  const products = await getProducts();
+  const cartItemsData = await getCartItemsFromStorage();
+  const mainElement = document.querySelector("main");
 
-    const cartPageContainer = createCartPageContainer();
-    mainElement.appendChild(cartPageContainer);
+  const cartPageContainer = createCartPageContainer();
+  mainElement.appendChild(cartPageContainer);
 
-    const cartText = createCartText(cartItemsData);
-    cartPageContainer.appendChild(cartText);
+  const cartText = createCartText(cartItemsData);
+  cartPageContainer.appendChild(cartText);
 
-    const cartItemsContainer = createCartItemsContainer(cartItemsData, products);
-    cartPageContainer.appendChild(cartItemsContainer);
+  const cartItemsContainer = createCartItemsContainer(cartItemsData, products);
+  cartPageContainer.appendChild(cartItemsContainer);
 
-    const cartSummaryContainer = createCartSummaryContainer();
-    cartPageContainer.appendChild(cartSummaryContainer);
+  const cartSummaryContainer = createCartSummaryContainer();
+  cartPageContainer.appendChild(cartSummaryContainer);
 
-    const totalPrice = createTotalPriceElement(products, cartItemsData);
-    cartSummaryContainer.appendChild(totalPrice);
+  const totalPrice = createTotalPriceElement(products, cartItemsData);
+  cartSummaryContainer.appendChild(totalPrice);
 
-    const checkoutButton = createCheckoutButton();
-    cartSummaryContainer.appendChild(checkoutButton);
-
+  const checkoutButton = createCheckoutButton();
+  cartSummaryContainer.appendChild(checkoutButton);
 }
 
 function createCartText(cartItemsData) {
-    const cartText = createElement("h1");
-    cartText.classList.add("cart-text");
-    const cartLength = cartCounter();
-    cartText.textContent = `You have ${cartLength} items in your shopping cart`;
-    return cartText;
+  const cartText = createElement("h1");
+  cartText.classList.add("cart-text");
+  const cartLength = cartCounter();
+  cartText.textContent = "You have " + cartLength + " items in your shopping cart";
+  return cartText;
 }
 
 function createCartItemsContainer(cartItemsData, products) {
-    const cartItemsContainer = createElement("div");
-    cartItemsContainer.classList.add("cart-items");
-    for (const cartItem of cartItemsData) {
-        const product = products.find(product => product.id === cartItem.id);
-        if (product) {
-            const cartItemContainer = createCartItem(product, cartItem.quantity);
-            cartItemsContainer.appendChild(cartItemContainer);
-        }
+  const cartItemsContainer = createElement("div");
+  cartItemsContainer.classList.add("cart-items");
+  for (const cartItem of cartItemsData) {
+    const product = products.find(function (product) {
+      return product.id === cartItem.id;
+    });
+    if (product) {
+      const cartItemContainer = createCartItem(product, cartItem.quantity);
+      cartItemsContainer.appendChild(cartItemContainer);
     }
-    return cartItemsContainer;
+  }
+  return cartItemsContainer;
 }
-
 
 function createCartItem(product, quantity) {
-    const cartItemContainer = createElement("div");
-    cartItemContainer.classList.add("cart-item");
+  const cartItemContainer = createElement("div");
+  cartItemContainer.classList.add("cart-item");
 
-    const productImg = createElement("img");
-    productImg.src = product.image;
-    productImg.alt = product.title;
+  const productImg = createElement("img");
+  productImg.src = product.image;
+  productImg.alt = product.title;
 
-    const itemDetails = createElement("div");
-    itemDetails.classList.add("item-details");
+  const itemDetails = createElement("div");
+  itemDetails.classList.add("item-details");
 
-    const productName = createElement("h2");
-    productName.textContent = product.title;
+  const productName = createElement("h2");
+  productName.textContent = product.title;
 
-    const productPrice = createElement("p");
-    if (product.onSale === true) {
-        productPrice.textContent = product.discountedPrice;
-    } else {
-        productPrice.textContent = product.price;
-    }
+  const productPrice = createElement("p");
+  productPrice.textContent = product.onSale ? product.discountedPrice : product.price;
 
-    const productQuantity = createElement("p"); 
-    productQuantity.textContent = `Quantity: ${quantity}`; 
-    
-    const removeItemButton = createElement("button");
-    removeItemButton.classList.add("remove-item-btn");
-    removeItemButton.textContent = "Remove";
+  const removeItemButton = createElement("button");
+  removeItemButton.classList.add("remove-item-btn");
+  removeItemButton.textContent = "Remove";
 
-    removeItemButton.addEventListener("click", function() {
-        const productId = product.id;
-        const updatedQuantity = removeItemFromCart(productId); 
-        productQuantity.textContent = `Quantity: ${updatedQuantity}`;
-        updateCartUI();
-        
-    });
+  const productQuantity = createElement("p");
+  productQuantity.classList.add("cart-quantity-text");
+  productQuantity.textContent = "Quantity: " + quantity;
 
-    cartItemContainer.appendChild(productImg);
-    cartItemContainer.appendChild(itemDetails);
-    itemDetails.appendChild(productName);
-    itemDetails.appendChild(productPrice);
-    itemDetails.appendChild(productQuantity); 
-    itemDetails.appendChild(removeItemButton);
+  removeItemButton.addEventListener("click", function () {
+    const productId = product.id;
+    const updatedQuantity = removeItemFromCart(productId);
+    updateCartUI();
+  });
 
-    return cartItemContainer;
+  cartItemContainer.appendChild(productImg);
+  cartItemContainer.appendChild(itemDetails);
+  itemDetails.appendChild(productName);
+  itemDetails.appendChild(productPrice);
+  itemDetails.appendChild(productQuantity);
+  itemDetails.appendChild(removeItemButton);
+
+  return cartItemContainer;
 }
 
-
 function createTotalPriceElement(products, cartItemsData) {
-    const totalPrice = createElement("p");
-    totalPrice.classList.add("total-price");
-    const total = calculateTotal(products, cartItemsData);
-    totalPrice.textContent = `Total: $${total.toFixed(2)}`;
-    return totalPrice;
+  const totalPrice = createElement("p");
+  totalPrice.classList.add("total-price");
+  const total = calculateTotal(products, cartItemsData);
+  totalPrice.textContent = "Total: $" + total.toFixed(2);
+  return totalPrice;
 }
 
 function calculateTotal(products, cartItemsData) {
-    let totalPrice = 0;
-
-    for (const cartItem of cartItemsData) {
-        // Find the product in the products list based on its ID
-        const product = products.find(product => product.id === cartItem.id);
-
-        if (product) {
-            // Check if the product is on sale
-            if (product.onSale) {
-                // If it's on sale, use the discounted price
-                totalPrice += product.discountedPrice * cartItem.quantity;
-            } else {
-                // If it's not on sale, use the regular price
-                totalPrice += product.price * cartItem.quantity;
-            }
-        }
+  let totalPrice = 0;
+  for (const cartItem of cartItemsData) {
+    const product = products.find(function (product) {
+      return product.id === cartItem.id;
+    });
+    if (product) {
+      totalPrice += product.onSale ? product.discountedPrice * cartItem.quantity : product.price * cartItem.quantity;
     }
-
-    return totalPrice;
+  }
+  return totalPrice;
 }
 
 function createCartPageContainer() {
-    const cartPageContainer = createElement("div");
-    cartPageContainer.classList.add("cart-page-container");
-    return cartPageContainer;
+  const cartPageContainer = createElement("div");
+  cartPageContainer.classList.add("cart-page-container");
+  return cartPageContainer;
 }
 
 function createCartSummaryContainer() {
-    const cartSummaryContainer = createElement("div");
-    cartSummaryContainer.classList.add("cart-summary");
-    return cartSummaryContainer;
+  const cartSummaryContainer = createElement("div");
+  cartSummaryContainer.classList.add("cart-summary");
+  return cartSummaryContainer;
 }
 
 function createCheckoutButton() {
-    const checkoutButton = createElement("button");
-    checkoutButton.classList.add("checkout-btn");
-    checkoutButton.textContent = "Checkout";
-    checkoutButton.addEventListener('click', function() {
-        // Navigate to the confirmation page
-        window.location.href = './confirmation/index.html';
-    });
-    return checkoutButton;
+  const checkoutButton = createElement("button");
+  checkoutButton.classList.add("checkout-btn");
+  checkoutButton.textContent = "Checkout";
+  checkoutButton.addEventListener("click", function () {
+    window.location.href = "./confirmation/index.html";
+  });
+  return checkoutButton;
 }
 
 function updateCartText() {
-    const cartText = document.querySelector(".cart-text");
-    const cartItems = getCartItemsFromStorage();
-    let totalQuantity = 0;
-    for (const item of cartItems) {
-        totalQuantity += item.quantity;
-    }
-    cartText.textContent = `You have ${totalQuantity} items in your shopping cart`;
+  const cartText = document.querySelector(".cart-text");
+  const cartTextQuantity = document.querySelector(".cart-quantity-text");
+  const cartItems = getCartItemsFromStorage();
+  let totalQuantity = 0;
+  for (const item of cartItems) {
+    totalQuantity += item.quantity;
+  }
+  cartText.textContent = "You have " + totalQuantity + " items in your shopping cart";
+  cartTextQuantity.textContent = "Quantity: " + totalQuantity;
 }
-export function removeItemFromCart(productId) {
-    let cartItems = getCartItemsFromStorage();
-    
-    // Find the index of the item with the given productId in the cartItems array
-    const itemIndex = cartItems.findIndex(item => item.id === productId);
-    
-    if (itemIndex !== -1) {
-        cartItems[itemIndex].quantity -= 1;
-        
-        // If the quantity becomes 0, remove the item from the cart
-        if (cartItems[itemIndex].quantity === 0) {
-            cartItems.splice(itemIndex, 1);
-        }
-        
-        // Update the cart in storage
-        updateCartInStorage(cartItems);
-        
-        // Return the updated quantity
-        return cartItems[itemIndex] ? cartItems[itemIndex].quantity : 0;
-    }
-    
-    // Return 0 if the item does not exist in the cart
-    return 0;
-}
-export async function updateCartUI() {
-    const cartItemsContainer = document.querySelector(".cart-items");
-    cartItemsContainer.innerHTML = "";
-    const products = await getProducts();
-    const cartItemsData = await getCartItemsFromStorage();
-    console.log(products);
-console.log(cartItemsData);
-    for (const cartItem of cartItemsData) { 
-        const product = products.find(product => product.id === cartItem.id);
-        if (product) {
-            const cartItemContainer = createCartItem({...product, quantity: cartItem.quantity}); 
-            cartItemsContainer.appendChild(cartItemContainer);
-        }
-    }
-    updatePriceTotal();
-    updateCartText();
 
+export function removeItemFromCart(productId) {
+  let cartItems = getCartItemsFromStorage();
+  const itemIndex = cartItems.findIndex(function (item) {
+    return item.id === productId;
+  });
+  if (itemIndex !== -1) {
+    cartItems[itemIndex].quantity -= 1;
+    if (cartItems[itemIndex].quantity === 0) {
+      cartItems.splice(itemIndex, 1);
+    }
+    updateCartInStorage(cartItems);
+    return cartItems[itemIndex] ? cartItems[itemIndex].quantity : 0;
+  }
+  return 0;
+}
+
+export async function updateCartUI() {
+  const cartItemsContainer = document.querySelector(".cart-items");
+  cartItemsContainer.innerHTML = "";
+  const products = await getProducts();
+  const cartItemsData = await getCartItemsFromStorage();
+  for (const cartItem of cartItemsData) {
+    const product = products.find(function (product) {
+      return product.id === cartItem.id;
+    });
+    if (product) {
+      const cartItemContainer = createCartItem({ ...product, quantity: cartItem.quantity });
+      cartItemsContainer.appendChild(cartItemContainer);
+    }
+  }
+  updatePriceTotal();
+  updateCartText();
+  updateCartIcon();
 }
 
 async function updatePriceTotal() {
-    const totalPriceElement = document.querySelector(".total-price");
-    const products = await getProducts();
-    const cartItemsData = await getCartItemsFromStorage();
-    const total = calculateTotal(products, cartItemsData);
-    totalPriceElement.textContent = `Total: $${total.toFixed(2)}`;
+  const totalPriceElement = document.querySelector(".total-price");
+  const products = await getProducts();
+  const cartItemsData = await getCartItemsFromStorage();
+  const total = calculateTotal(products, cartItemsData);
+  totalPriceElement.textContent = "Total: $" + total.toFixed(2);
 }
 
+async function main() {
+  createCartItems();
+  updateCartIcon();
+}
 
-
-createCartItems();
+main();

@@ -91,6 +91,7 @@ li, a{
 
 
 
+
  /* Hero Container */
  .hero-container {
     display: flex;
@@ -304,6 +305,16 @@ h2{
     font-size: 20px;
 }
 
+.cart-counter {
+    background-color: #ff0000; /* Red background color */
+    color: #ffffff; 
+    border-radius: 50%; 
+    padding: 0.2rem 0.4rem; 
+    font-size: 10px; 
+    position: absolute; 
+    top: 13px;
+    right: 60px;
+}
 
 /* cart-styles.css */
 

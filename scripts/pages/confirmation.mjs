@@ -8,12 +8,12 @@ export async function appendOrderItemsAndTotal() {
     console.log("Grabbing order-details", orderContainer);
 
     try {
-       
         const products = await getProducts();
-        console.log("getting all products from api", products)
+        console.log("getting all products from api", products);
+        
         // Retrieve cart items from storage
         const cartItemsData = await getCartItemsFromStorage();
-        console.log("getting all products from localstorage", cartItemsData)
+        console.log("getting all products from localstorage", cartItemsData);
 
         // Variable to hold the total price
         let totalPrice = 0;
@@ -22,13 +22,10 @@ export async function appendOrderItemsAndTotal() {
         // Iterate over the cart items and create HTML for each item
         for (const cartItem of cartItemsData) {
             const itemId = cartItem.id; 
-            
-            
             const product = products.find(product => product.id === itemId);
             console.log("Product found:", product);
             
             if (product) {
-                
                 const orderItemDiv = document.createElement('div');
                 orderItemDiv.classList.add('order-item');
                 
@@ -43,13 +40,8 @@ export async function appendOrderItemsAndTotal() {
                 productNameHeading.textContent = product.title;
         
                 const priceParagraph = document.createElement('p');
-                if (product.onSale === true) {
-                    priceParagraph.textContent = `Price: $${product.discountedPrice.toFixed(2)}`;
-                    totalPrice += product.discountedPrice;
-                } else {
-                    priceParagraph.textContent = `Price: $${product.price.toFixed(2)}`;
-                    totalPrice += product.price;
-                }
+                priceParagraph.textContent = `Price: $${getProductPrice(product).toFixed(2)}`;
+                totalPrice += getProductPrice(product);
         
                 // Append elements to the order item div
                 itemDetailsDiv.appendChild(productNameHeading);
@@ -81,5 +73,14 @@ export async function appendOrderItemsAndTotal() {
     }
 }
 
-appendOrderItemsAndTotal()
+function getProductPrice(product) {
+    let price;
+    if (product.onSale) {
+        price = product.discountedPrice;
+    } else {
+        price = product.price;
+    }
+    return price;
+}
 
+appendOrderItemsAndTotal();

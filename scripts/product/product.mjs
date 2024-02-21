@@ -1,5 +1,5 @@
 import { displayProduct } from "../utils/domUtils.mjs";
-
+import { updateCartIcon } from "../utils/Cart.mjs";
 // Gets the ID from the url
 export function getIdFromUrl() {
   const filterUrl = new URLSearchParams(window.location.search);
@@ -12,7 +12,7 @@ export function getIdFromUrl() {
 function main(){
   const urlProductId = getIdFromUrl();
   displayProduct(urlProductId);
-
+  updateCartIcon();
 
 }
 

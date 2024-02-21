@@ -145,7 +145,7 @@ async function updatePriceTotal() {
 
     
     const totalPriceElement = document.querySelector(".total-price");
-    
+    // Update the content to display the new total price
     totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`; // Format the total price as needed
 }
 
