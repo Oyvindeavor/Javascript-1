@@ -139,7 +139,7 @@ li, a{
     margin: 10px;
     box-shadow: 0 0 2px #ccc;
     max-width: 200px;
-    background-color: ;
+    
 }
 
 .product-container:hover {
@@ -148,7 +148,7 @@ li, a{
 }
 
 .product-container img {
-    max-width: 100%;
+    width: 150px;
     height: auto;
     margin-bottom: 10px;
 }
@@ -399,7 +399,14 @@ h2{
 .order-confirmation-container {
     max-width: 800px;
     margin: 50px auto;
-    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .order-confirmation-container h1 {
@@ -408,6 +415,7 @@ h2{
 
 .order-confirmation-container p {
     margin-bottom: 10px;
+    back
 }
 
 .order-details {
