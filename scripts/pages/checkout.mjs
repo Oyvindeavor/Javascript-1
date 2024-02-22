@@ -51,16 +51,13 @@ function createCartItemsContainer(cartItemsData, products) {
 }
 
 function createCartItem(product, quantity) {
-const cartItemContainer = createClass(createElement("div"), "cart-item");
-
-
+  const cartItemContainer = createClass(createElement("div"), "cart-item");
 
   const productImg = createElement("img");
   productImg.src = product.image;
   productImg.alt = product.title;
 
-  const itemDetails = createElement("div");
-  itemDetails.classList.add("item-details");
+  const itemDetails = createClass(createElement("div"), "item-details");
 
   const productName = createElement("h2");
   productName.textContent = product.title;
@@ -68,20 +65,17 @@ const cartItemContainer = createClass(createElement("div"), "cart-item");
   const productPrice = createElement("p");
   productPrice.textContent = product.onSale ? product.discountedPrice : product.price;
 
-  const removeItemButton = createElement("button");
-  removeItemButton.classList.add("remove-item-btn");
+  const removeItemButton = createClass(createElement("button"), "remove-item-btn");
   removeItemButton.textContent = "Remove";
 
-  const productQuantity = createElement("p");
-  productQuantity.classList.add("cart-quantity-text");
+  const productQuantity = createClass(createElement("p"), "cart-quantity-text");
   productQuantity.textContent = "Quantity: " + quantity;
 
- removeItemButton.addEventListener("click", function () {
-  const productId = product.id;
-  removeItemFromCart(productId, quantity); 
-  updateCartUI(); 
-});
-
+  removeItemButton.addEventListener("click", function () {
+    const productId = product.id;
+    removeItemFromCart(productId, quantity);
+    updateCartUI();
+  });
 
   cartItemContainer.appendChild(productImg);
   cartItemContainer.appendChild(itemDetails);
@@ -94,8 +88,7 @@ const cartItemContainer = createClass(createElement("div"), "cart-item");
 }
 
 function createTotalPriceElement(products, cartItemsData) {
-  const totalPrice = createElement("p");
-  totalPrice.classList.add("total-price");
+  const totalPrice = createClass(createElement("p"), "total-price");
   const total = calculateTotal(products, cartItemsData);
   totalPrice.textContent = "Total: $" + total.toFixed(2);
   return totalPrice;
@@ -170,12 +163,10 @@ export async function updateCartUI() {
   for (const cartItem of cartItemsData) {
     const product = products.find(function (product) {
       return product.id === cartItem.id;
-      
     });
     if (product) {
       const cartItemContainer = createCartItem(product, cartItem.quantity);
-cartItemsContainer.appendChild(cartItemContainer)
- 
+      cartItemsContainer.appendChild(cartItemContainer);
     }
   }
   updatePriceTotal();
