@@ -35,6 +35,7 @@ export async function displayProducts(products) {
       const standardPrice = createClass(createElement("p"), "product-regular-price");
       standardPrice.textContent = product.price;
 
+      // If the product has the onSale attribute create a discount price 
       let discountPrice;
       if (product.onSale === true) {
         discountPrice = createClass(createElement("p"), "product-discounted-price");
