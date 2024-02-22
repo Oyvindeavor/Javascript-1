@@ -1,4 +1,5 @@
 import { createElement } from "../utils/domUtils.mjs";
+import { createClass } from "../utils/domUtils.mjs";
 import { getCartItemsFromStorage, updateCartInStorage } from "../utils/Cart.mjs";
 import { getProducts } from "../utils/fetchdata.mjs";
 import { cartCounter } from "../utils/Cart.mjs";
@@ -29,16 +30,14 @@ export async function createCartItems() {
 }
 
 function createCartText(cartItemsData) {
-  const cartText = createElement("h1");
-  cartText.classList.add("cart-text");
+  const cartText = createClass(createElement("h1"), "cart-text");
   const cartLength = cartCounter();
   cartText.textContent = "You have " + cartLength + " items in your shopping cart";
   return cartText;
 }
 
 function createCartItemsContainer(cartItemsData, products) {
-  const cartItemsContainer = createElement("div");
-  cartItemsContainer.classList.add("cart-items");
+  const cartItemsContainer = createClass(createElement("div"), "cart-items");
   for (const cartItem of cartItemsData) {
     const product = products.find(function (product) {
       return product.id === cartItem.id;
@@ -52,8 +51,9 @@ function createCartItemsContainer(cartItemsData, products) {
 }
 
 function createCartItem(product, quantity) {
-  const cartItemContainer = createElement("div");
-  cartItemContainer.classList.add("cart-item");
+const cartItemContainer = createClass(createElement("div"), "cart-item");
+
+
 
   const productImg = createElement("img");
   productImg.src = product.image;
