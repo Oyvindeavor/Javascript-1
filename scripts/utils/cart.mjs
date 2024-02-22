@@ -1,3 +1,4 @@
+
 // Add product(s) to cart
 export function addToCart(product) {
   // Get the existing items from storage
@@ -39,9 +40,38 @@ export function getCartItemsFromStorage() {
   }
 }
 
+export function calculateTotal(products, cartItemsData) {
+  let totalPrice = 0;
+  for (const cartItem of cartItemsData) {
+    const product = products.find(function (product) {
+      return product.id === cartItem.id;
+    });
+    if (product) {
+      totalPrice += product.onSale ? product.discountedPrice * cartItem.quantity : product.price * cartItem.quantity;
+    }
+  }
+  return totalPrice;
+}
+
 // Clears all carts from local storage
 export function clearAllCartItemsFromStorage() {
   localStorage.setItem("cart", JSON.stringify([]));
+}
+
+export function removeItemFromCart(productId) {
+  let cartItems = getCartItemsFromStorage();
+  const itemIndex = cartItems.findIndex(function (item) {
+    return item.id === productId;
+  });
+  if (itemIndex !== -1) {
+    cartItems[itemIndex].quantity -= 1;
+    if (cartItems[itemIndex].quantity === 0) {
+      cartItems.splice(itemIndex, 1);
+    }
+    updateCartInStorage(cartItems);
+    return cartItems[itemIndex] ? cartItems[itemIndex].quantity : 0;
+  }
+  return 0;
 }
 
 // Gets all the products added to local storage > loops through them > adds it to variable then returns it
@@ -61,3 +91,5 @@ export function updateCartIcon() {
   const cartIconCounter = document.querySelector(".cart-counter");
   cartIconCounter.textContent = cartQuantity;
 }
+
+
