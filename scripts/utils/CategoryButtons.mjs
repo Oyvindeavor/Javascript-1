@@ -1,6 +1,6 @@
 import { getProducts } from "../utils/fetchdata.mjs";
 import { createElement, createClass } from "../utils/domUtils.mjs";
-import { displayProducts } from "../pages/products.mjs";
+import { displayProducts } from "../../products/products.mjs"
 
 export async function getProductGenres() {
     try {
