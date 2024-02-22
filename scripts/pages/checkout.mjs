@@ -29,12 +29,14 @@ export async function createCartItems() {
   cartSummaryContainer.appendChild(checkoutButton);
 }
 
+
 function createCartText(cartItemsData) {
   const cartText = createClass(createElement("h1"), "cart-text");
   const cartLength = cartCounter();
   cartText.textContent = "You have " + cartLength + " items in your shopping cart";
   return cartText;
 }
+
 
 function createCartItemsContainer(cartItemsData, products) {
   const cartItemsContainer = createClass(createElement("div"), "cart-items");
@@ -49,6 +51,7 @@ function createCartItemsContainer(cartItemsData, products) {
   }
   return cartItemsContainer;
 }
+
 
 function createCartItem(product, quantity) {
   const cartItemContainer = createClass(createElement("div"), "cart-item");
@@ -87,12 +90,14 @@ function createCartItem(product, quantity) {
   return cartItemContainer;
 }
 
+
 function createTotalPriceElement(products, cartItemsData) {
   const totalPrice = createClass(createElement("p"), "total-price");
   const total = calculateTotal(products, cartItemsData);
   totalPrice.textContent = "Total: $" + total.toFixed(2);
   return totalPrice;
 }
+
 
 function calculateTotal(products, cartItemsData) {
   let totalPrice = 0;
@@ -107,27 +112,28 @@ function calculateTotal(products, cartItemsData) {
   return totalPrice;
 }
 
+
 function createCartPageContainer() {
-  const cartPageContainer = createElement("div");
-  cartPageContainer.classList.add("cart-page-container");
+  const cartPageContainer = createClass(createElement("div"), "cart-page-container");
   return cartPageContainer;
 }
 
+
 function createCartSummaryContainer() {
-  const cartSummaryContainer = createElement("div");
-  cartSummaryContainer.classList.add("cart-summary");
+  const cartSummaryContainer = createClass(createElement("div"), "cart-summary");
   return cartSummaryContainer;
 }
 
+
 function createCheckoutButton() {
-  const checkoutButton = createElement("button");
-  checkoutButton.classList.add("checkout-btn");
+  const checkoutButton = createClass(createElement("button"), "checkout-btn");
   checkoutButton.textContent = "Checkout";
   checkoutButton.addEventListener("click", function () {
     window.location.href = "./confirmation/index.html";
   });
   return checkoutButton;
 }
+
 
 function updateCartText() {
   const cartText = document.querySelector(".cart-text");
@@ -138,6 +144,7 @@ function updateCartText() {
   }
   cartText.textContent = "You have " + totalQuantity + " items in your shopping cart";
 }
+
 
 export function removeItemFromCart(productId) {
   let cartItems = getCartItemsFromStorage();
@@ -154,6 +161,7 @@ export function removeItemFromCart(productId) {
   }
   return 0;
 }
+
 
 export async function updateCartUI() {
   const products = await getProducts();
@@ -174,6 +182,7 @@ export async function updateCartUI() {
   updateCartIcon();
 }
 
+
 async function updatePriceTotal() {
   const totalPriceElement = document.querySelector(".total-price");
   const products = await getProducts();
@@ -182,9 +191,11 @@ async function updatePriceTotal() {
   totalPriceElement.textContent = "Total: $" + total.toFixed(2);
 }
 
+
 async function main() {
   await createCartItems();
   updateCartUI();
 }
+
 
 main();
