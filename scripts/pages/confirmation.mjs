@@ -1,86 +1,73 @@
-// Import necessary functions from other modules
+
 import { getProducts } from "../utils/fetchdata.mjs";
 import { getCartItemsFromStorage, clearAllCartItemsFromStorage } from "../utils/Cart.mjs";
 
 export async function appendOrderItemsAndTotal() {
-    // Get the container where order items will be appended
-    const orderContainer = document.querySelector('.order-details');
-    console.log("Grabbing order-details", orderContainer);
+  const orderContainer = document.querySelector(".order-details");
 
-    try {
-        const products = await getProducts();
-        console.log("getting all products from api", products);
-        
-        // Retrieve cart items from storage
-        const cartItemsData = await getCartItemsFromStorage();
-        console.log("getting all products from localstorage", cartItemsData);
+  try {
+    const products = await getProducts();
+    const cartItemsData = await getCartItemsFromStorage();
+    let totalPrice = 0;
 
-        // Variable to hold the total price
-        let totalPrice = 0;
-        console.log(cartItemsData);
+    for (const cartItem of cartItemsData) {
+      const product = products.find((product) => product.id === cartItem.id);
 
-        // Iterate over the cart items and create HTML for each item
-        for (const cartItem of cartItemsData) {
-            const itemId = cartItem.id; 
-            const product = products.find(product => product.id === itemId);
-            console.log("Product found:", product);
-            
-            if (product) {
-                const orderItemDiv = document.createElement('div');
-                orderItemDiv.classList.add('order-item');
-                
-                const img = document.createElement('img');
-                img.src = product.image;
-                img.alt = product.title;
-                
-                const itemDetailsDiv = document.createElement('div');
-                itemDetailsDiv.classList.add('item-details');
-        
-                const productNameHeading = document.createElement('h3');
-                productNameHeading.textContent = product.title;
-        
-                const priceParagraph = document.createElement('p');
-                priceParagraph.textContent = `Price: $${getProductPrice(product).toFixed(2)}`;
-                totalPrice += getProductPrice(product);
-        
-                // Append elements to the order item div
-                itemDetailsDiv.appendChild(productNameHeading);
-                itemDetailsDiv.appendChild(priceParagraph);
-        
-                orderItemDiv.appendChild(img);
-                orderItemDiv.appendChild(itemDetailsDiv);
-        
-                // Append the order item div to the order container
-                orderContainer.appendChild(orderItemDiv);
-            }
-        }
-        
-        // Create element for order total
-        const orderTotalDiv = document.createElement('div');
-        orderTotalDiv.classList.add('order-total');
-        
+      if (product) {
+        const orderItemDiv = document.createElement("div");
+        orderItemDiv.classList.add("order-item");
 
-        const totalHeading = document.createElement('h2');
-        totalHeading.textContent = `Total: $${totalPrice.toFixed(2)}`;
+        const img = document.createElement("img");
+        img.src = product.image;
+        img.alt = product.title;
 
-        // Append order total to order container
-        orderTotalDiv.appendChild(totalHeading);
-        orderContainer.appendChild(orderTotalDiv);
+        const itemDetailsDiv = document.createElement("div");
+        itemDetailsDiv.classList.add("item-details");
 
-        clearAllCartItemsFromStorage();
-    } catch (error) {
-        console.error("Error:", error);
+        const productNameHeading = document.createElement("h3");
+        productNameHeading.textContent = product.title;
+
+        const quantityParagraph = document.createElement("p");
+        quantityParagraph.textContent = `Quantity: ${cartItem.quantity}`;
+
+        const priceParagraph = document.createElement("p");
+        const productPrice = getProductPrice(product) * cartItem.quantity; 
+        priceParagraph.textContent = `Price: $${productPrice.toFixed(2)}`;
+        totalPrice += productPrice; 
+
+        itemDetailsDiv.appendChild(productNameHeading);
+        itemDetailsDiv.appendChild(quantityParagraph); 
+        itemDetailsDiv.appendChild(priceParagraph);
+
+        orderItemDiv.appendChild(img);
+        orderItemDiv.appendChild(itemDetailsDiv);
+
+        orderContainer.appendChild(orderItemDiv);
+      }
     }
+
+    // Display total price
+    const orderTotalDiv = document.createElement("div");
+    orderTotalDiv.classList.add("order-total");
+    const totalHeading = document.createElement("h2");
+    totalHeading.textContent = `Total: $${totalPrice.toFixed(2)}`;
+    orderTotalDiv.appendChild(totalHeading);
+    orderContainer.appendChild(orderTotalDiv);
+
+    clearAllCartItemsFromStorage();
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 function getProductPrice(product) {
-    let price;
-    if (product.onSale) {
-        price = product.discountedPrice;
-    } else {
-        price = product.price;
-    }
-    return price;
+  let price;
+  if (product.onSale) {
+    price = product.discountedPrice;
+  } else {
+    price = product.price;
+  }
+  return price;
 }
 
 appendOrderItemsAndTotal();
