@@ -5,34 +5,20 @@ import { hideLoadingSpinner } from "./loadingSpinner.mjs";
 
 export const api_url = "https://api.noroff.dev/api/v1/gamehub";
 
-// Function to fetch data from the API
-export async function fetchData(url) {
+// Fetch product data
+export async function getProducts() {
+  showLoadingSpinner(); 
   try {
-    showLoadingSpinner();
-    const response = await fetch(url);
+    const response = await fetch(api_url);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    hideLoadingSpinner();
-    return response.json();
+    const products = await response.json();
+    return products; 
   } catch (error) {
-    console.error("Error fetching data from API:", error.message);
+    console.error("Error fetching products:", error.message);
+    return []; // return empty to not get undefined error
+  } finally {
+    hideLoadingSpinner(); 
   }
 }
-
-
-
-// This is the function to get items from the API
-export async function getProducts() {
-  try {
-    showLoadingSpinner(); 
-    const products = await fetchData(api_url);
-    hideLoadingSpinner(); 
-    return products;
-  } catch (error) {
-    hideLoadingSpinner(); 
-    console.error("Error fetching products:", error);
-    return []; 
-  }
-}
-
