@@ -14,8 +14,11 @@ export async function displayProducts(products) {
       productsToDisplay = products;
     }
 
+    // Create products container
     const itemsContainer = document.querySelector(".items-container");
+    // Loop through the api products
     for (const product of productsToDisplay) {
+      // Inside loop create div and product card container.
       const productContainer = createClass(createElement("div"), "product-container");
 
       const anchorElement = createElement("a");
@@ -28,10 +31,12 @@ export async function displayProducts(products) {
       const productTitle = createClass(createElement("h2"), "product-title");
       productTitle.textContent = product.title;
 
+      // Create Image element assign image and the alt text to the title
       const productImg = createElement("img");
       productImg.src = product.image;
       productImg.alt = product.title;
 
+      // Create price element and assign it the price
       const standardPrice = createClass(createElement("p"), "product-regular-price");
       standardPrice.textContent = product.price;
 
