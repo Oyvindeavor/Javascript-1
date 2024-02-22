@@ -1,7 +1,6 @@
-"use strict";
+// Import loading spinners 
+import { showLoadingSpinner, hideLoadingSpinner } from "./loadingSpinner.mjs";
 
-import { showLoadingSpinner } from "./loadingSpinner.mjs";
-import { hideLoadingSpinner } from "./loadingSpinner.mjs";
 
 export const api_url = "https://api.noroff.dev/api/v1/gamehub";
 
