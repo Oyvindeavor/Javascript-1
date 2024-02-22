@@ -12,6 +12,7 @@ export async function getProductGenres() {
     }
 }
 
+// 
 export async function createCategoryButtons() {
     try {
         const sortedGenres = await getProductGenres();
