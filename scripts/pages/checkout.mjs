@@ -1,9 +1,6 @@
-import { createElement } from "../utils/domUtils.mjs";
-import { createClass } from "../utils/domUtils.mjs";
-import { getCartItemsFromStorage, updateCartInStorage } from "../utils/Cart.mjs";
+import { createElement, createClass } from "../utils/domUtils.mjs";
+import { getCartItemsFromStorage, cartCounter, updateCartIcon, removeItemFromCart, calculateTotal } from "../utils/Cart.mjs";
 import { getProducts } from "../utils/fetchdata.mjs";
-import { cartCounter } from "../utils/Cart.mjs";
-import { updateCartIcon } from "../utils/Cart.mjs";
 
 export async function createCartItems() {
   const products = await getProducts();
@@ -29,14 +26,12 @@ export async function createCartItems() {
   cartSummaryContainer.appendChild(checkoutButton);
 }
 
-
 function createCartText(cartItemsData) {
   const cartText = createClass(createElement("h1"), "cart-text");
   const cartLength = cartCounter();
   cartText.textContent = "You have " + cartLength + " items in your shopping cart";
   return cartText;
 }
-
 
 function createCartItemsContainer(cartItemsData, products) {
   const cartItemsContainer = createClass(createElement("div"), "cart-items");
@@ -51,7 +46,6 @@ function createCartItemsContainer(cartItemsData, products) {
   }
   return cartItemsContainer;
 }
-
 
 function createCartItem(product, quantity) {
   const cartItemContainer = createClass(createElement("div"), "cart-item");
@@ -90,7 +84,6 @@ function createCartItem(product, quantity) {
   return cartItemContainer;
 }
 
-
 function createTotalPriceElement(products, cartItemsData) {
   const totalPrice = createClass(createElement("p"), "total-price");
   const total = calculateTotal(products, cartItemsData);
@@ -98,32 +91,15 @@ function createTotalPriceElement(products, cartItemsData) {
   return totalPrice;
 }
 
-
-function calculateTotal(products, cartItemsData) {
-  let totalPrice = 0;
-  for (const cartItem of cartItemsData) {
-    const product = products.find(function (product) {
-      return product.id === cartItem.id;
-    });
-    if (product) {
-      totalPrice += product.onSale ? product.discountedPrice * cartItem.quantity : product.price * cartItem.quantity;
-    }
-  }
-  return totalPrice;
-}
-
-
 function createCartPageContainer() {
   const cartPageContainer = createClass(createElement("div"), "cart-page-container");
   return cartPageContainer;
 }
 
-
 function createCartSummaryContainer() {
   const cartSummaryContainer = createClass(createElement("div"), "cart-summary");
   return cartSummaryContainer;
 }
-
 
 function createCheckoutButton() {
   const checkoutButton = createClass(createElement("button"), "checkout-btn");
@@ -134,7 +110,6 @@ function createCheckoutButton() {
   return checkoutButton;
 }
 
-
 function updateCartText() {
   const cartText = document.querySelector(".cart-text");
   const cartItems = getCartItemsFromStorage();
@@ -144,24 +119,6 @@ function updateCartText() {
   }
   cartText.textContent = "You have " + totalQuantity + " items in your shopping cart";
 }
-
-
-export function removeItemFromCart(productId) {
-  let cartItems = getCartItemsFromStorage();
-  const itemIndex = cartItems.findIndex(function (item) {
-    return item.id === productId;
-  });
-  if (itemIndex !== -1) {
-    cartItems[itemIndex].quantity -= 1;
-    if (cartItems[itemIndex].quantity === 0) {
-      cartItems.splice(itemIndex, 1);
-    }
-    updateCartInStorage(cartItems);
-    return cartItems[itemIndex] ? cartItems[itemIndex].quantity : 0;
-  }
-  return 0;
-}
-
 
 export async function updateCartUI() {
   const products = await getProducts();
@@ -182,7 +139,6 @@ export async function updateCartUI() {
   updateCartIcon();
 }
 
-
 async function updatePriceTotal() {
   const totalPriceElement = document.querySelector(".total-price");
   const products = await getProducts();
@@ -191,11 +147,9 @@ async function updatePriceTotal() {
   totalPriceElement.textContent = "Total: $" + total.toFixed(2);
 }
 
-
 async function main() {
   await createCartItems();
   updateCartUI();
 }
-
 
 main();
