@@ -1,3 +1,4 @@
+
 export function addToCart(product) {
   let cartItems = getCartItemsFromStorage();
 
@@ -12,6 +13,7 @@ export function addToCart(product) {
   }
 
   updateCartInStorage(cartItems);
+  
   updateCartIcon();
   return cartItems;
 }
@@ -54,5 +56,3 @@ export function updateCartIcon(){
   const cartIconCounter = document.querySelector(".cart-counter");
   cartIconCounter.textContent = cartQuantity;
 }
-
-
