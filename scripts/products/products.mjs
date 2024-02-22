@@ -45,7 +45,7 @@ async function createCartItems() {
     // Create total price element
     const totalPrice = createElement("p");
     totalPrice.classList.add("total-price");
-    totalPrice.textContent = "Total: $19.99"; // You need to replace this with the actual total price
+    totalPrice.textContent = "Total: $19.99"; 
     cartSummaryContainer.appendChild(totalPrice);
 
     // Create checkout button
@@ -145,8 +145,8 @@ async function updatePriceTotal() {
 
     
     const totalPriceElement = document.querySelector(".total-price");
-    // Update the content to display the new total price
-    totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`; // Format the total price as needed
+    
+    totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`; 
 }
 
 
