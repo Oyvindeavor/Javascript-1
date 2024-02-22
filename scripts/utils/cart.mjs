@@ -42,6 +42,7 @@ export function getIdFromUrlCart() {
   return filterUrl.get("productId");
 }
 
+// Gets all the products added to local storage > loops through them > adds it to variable then returns it
 export function cartCounter() {
   let cartItems = getCartItemsFromStorage();
   let totalQuantity = 0;
@@ -51,6 +52,8 @@ export function cartCounter() {
   return totalQuantity;
 }
 
+// Updates the cart icon to show number of items in the cart > get the total quantity in local storage from cartCounter() 
+// Select the counter graphic > change the text to the quantity
 export function updateCartIcon(){
   const cartQuantity = cartCounter();
   const cartIconCounter = document.querySelector(".cart-counter");
