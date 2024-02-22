@@ -74,6 +74,16 @@ export function removeItemFromCart(productId) {
   return 0;
 }
 
+export function getProductPrice(product) {
+  let price;
+  if (product.onSale) {
+    price = product.discountedPrice;
+  } else {
+    price = product.price;
+  }
+  return price;
+}
+
 // Gets all the products added to local storage > loops through them > adds it to variable then returns it
 export function cartCounter() {
   let cartItems = getCartItemsFromStorage();
