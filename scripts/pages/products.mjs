@@ -1,9 +1,9 @@
 "use strict";
 
-import { getProducts } from "../utils/fetchdata.mjs";
-import { createClass, createElement } from "../utils/domUtils.mjs";
-import { createCategoryButtons } from "../utils/CategoryButtons.mjs";
-import { updateCartIcon, addToCart } from "../utils/Cart.mjs";
+import { getProducts } from "../utils/fetchdata.mjs"; // Fetches products from api and returns JSON
+import { createClass, createElement } from "../utils/domUtils.mjs"; // Creates element and creates class
+import { createCategoryButtons } from "../utils/CategoryButtons.mjs"; // Creates the category buttons
+import { updateCartIcon, addToCart } from "../utils/Cart.mjs"; // Update cart icon and adds item to cart.
 
 export async function displayProducts(products) {
   try {
@@ -79,8 +79,11 @@ export async function displayProducts(products) {
 }
 
 function main() {
+  // Create the category buttons
   createCategoryButtons();
+  // Display all the products
   displayProducts();
+  // Update the cart icon 
   updateCartIcon();
 }
 
