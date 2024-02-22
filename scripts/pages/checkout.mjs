@@ -76,11 +76,12 @@ function createCartItem(product, quantity) {
   productQuantity.classList.add("cart-quantity-text");
   productQuantity.textContent = "Quantity: " + quantity;
 
-  removeItemButton.addEventListener("click", function () {
-    const productId = product.id;
-    const updatedQuantity = removeItemFromCart(productId);
-    updateCartUI();
-  });
+ removeItemButton.addEventListener("click", function () {
+  const productId = product.id;
+  removeItemFromCart(productId, quantity); 
+  updateCartUI(); 
+});
+
 
   cartItemContainer.appendChild(productImg);
   cartItemContainer.appendChild(itemDetails);
@@ -137,14 +138,12 @@ function createCheckoutButton() {
 
 function updateCartText() {
   const cartText = document.querySelector(".cart-text");
-  const cartTextQuantity = document.querySelector(".cart-quantity-text");
   const cartItems = getCartItemsFromStorage();
   let totalQuantity = 0;
   for (const item of cartItems) {
     totalQuantity += item.quantity;
   }
   cartText.textContent = "You have " + totalQuantity + " items in your shopping cart";
-  cartTextQuantity.textContent = "Quantity: " + totalQuantity;
 }
 
 export function removeItemFromCart(productId) {
@@ -164,17 +163,19 @@ export function removeItemFromCart(productId) {
 }
 
 export async function updateCartUI() {
-  const cartItemsContainer = document.querySelector(".cart-items");
-  cartItemsContainer.innerHTML = "";
   const products = await getProducts();
   const cartItemsData = await getCartItemsFromStorage();
+  const cartItemsContainer = document.querySelector(".cart-items");
+  cartItemsContainer.innerHTML = "";
   for (const cartItem of cartItemsData) {
     const product = products.find(function (product) {
       return product.id === cartItem.id;
+      
     });
     if (product) {
-      const cartItemContainer = createCartItem({ ...product, quantity: cartItem.quantity });
-      cartItemsContainer.appendChild(cartItemContainer);
+      const cartItemContainer = createCartItem(product, cartItem.quantity);
+cartItemsContainer.appendChild(cartItemContainer)
+ 
     }
   }
   updatePriceTotal();
@@ -191,8 +192,8 @@ async function updatePriceTotal() {
 }
 
 async function main() {
-  createCartItems();
-  updateCartIcon();
+  await createCartItems();
+  updateCartUI();
 }
 
 main();
