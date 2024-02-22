@@ -7,8 +7,18 @@ export async function createCartItems() {
   const cartItemsData = await getCartItemsFromStorage();
   const mainElement = document.querySelector("main");
 
-  const cartPageContainer = createCartPageContainer();
-  mainElement.appendChild(cartPageContainer);
+  // Check to see if the cart container is already there
+  let cartPageContainer = document.querySelector(".cart-page-container");
+  if (!cartPageContainer) {
+    cartPageContainer = createCartPageContainer();
+    mainElement.appendChild(cartPageContainer);
+  } else {
+    // If it is dont create and just clear the cart items 
+    const cartItemsContainer = cartPageContainer.querySelector(".cart-items");
+    if (cartItemsContainer) {
+      cartItemsContainer.innerHTML = ''; 
+    }
+  }
 
   const cartText = createCartText(cartItemsData);
   cartPageContainer.appendChild(cartText);
@@ -16,10 +26,17 @@ export async function createCartItems() {
   const cartItemsContainer = createCartItemsContainer(cartItemsData, products);
   cartPageContainer.appendChild(cartItemsContainer);
 
-  const cartSummaryContainer = createCartSummaryContainer();
-  cartPageContainer.appendChild(cartSummaryContainer);
+  // Check to see if it exists 
+  let cartSummaryContainer = cartPageContainer.querySelector(".cart-summary");
+  if (!cartSummaryContainer) {
+    cartSummaryContainer = createCartSummaryContainer();
+    cartPageContainer.appendChild(cartSummaryContainer);
+  }
 
   const totalPrice = createTotalPriceElement(products, cartItemsData);
+  cartSummaryContainer.appendChild(totalPrice);
+
+  cartSummaryContainer.innerHTML = '';
   cartSummaryContainer.appendChild(totalPrice);
 
   const checkoutButton = createCheckoutButton();
