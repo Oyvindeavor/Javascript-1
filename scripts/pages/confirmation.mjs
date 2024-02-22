@@ -1,8 +1,9 @@
 
 import { getProducts } from "../utils/fetchdata.mjs";
 import { getCartItemsFromStorage, clearAllCartItemsFromStorage } from "../utils/Cart.mjs";
+import { getProductPrice } from "../utils/Cart.mjs";
 
-export async function appendOrderItemsAndTotal() {
+async function appendOrderItemsAndTotal() {
   const orderContainer = document.querySelector(".order-details");
 
   try {
@@ -60,14 +61,8 @@ export async function appendOrderItemsAndTotal() {
   }
 }
 
-function getProductPrice(product) {
-  let price;
-  if (product.onSale) {
-    price = product.discountedPrice;
-  } else {
-    price = product.price;
-  }
-  return price;
+async function main(){
+    await appendOrderItemsAndTotal();
 }
 
-appendOrderItemsAndTotal();
+main();
