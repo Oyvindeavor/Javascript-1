@@ -165,8 +165,8 @@ async function updatePriceTotal() {
 }
 
 async function main() {
+  await updateCartIcon();
   await createCartItems();
-  updateCartUI();
 }
 
 main();
