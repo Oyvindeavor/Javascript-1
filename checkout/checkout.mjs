@@ -1,6 +1,7 @@
 import { createElement, createClass } from "../scripts/utils/domUtils.mjs";
 import { getCartItemsFromStorage, cartCounter, updateCartIcon, removeItemFromCart, calculateTotal } from "../scripts/utils/Cart.mjs";
 import { getProducts } from "../scripts/utils/fetchdata.mjs";
+import { updateCartInStorage } from "../scripts/utils/Cart.mjs";
 
 export async function createCartItems() {
   const products = await getProducts();
@@ -88,7 +89,9 @@ function createCartItem(product, quantity) {
   removeItemButton.addEventListener("click", function () {
     const productId = product.id;
     removeItemFromCart(productId, quantity);
+    updateCartIcon()
     updateCartUI();
+
   });
 
   cartItemContainer.appendChild(productImg);
@@ -119,11 +122,23 @@ function createCartSummaryContainer() {
 }
 
 function createCheckoutButton() {
+  // Fetch the cart counter so I can check number of items in cart
+  const numberOfItemsInCart = cartCounter();
   const checkoutButton = createClass(createElement("button"), "checkout-btn");
   checkoutButton.textContent = "Checkout";
+
+  // Check to see if there are items in the cart and disable the button if there are none
+  if (numberOfItemsInCart < 1) {
+    checkoutButton.disabled = true;
+    checkoutButton.classList.add("checkout-btn-disabled"); 
+  }
   checkoutButton.addEventListener("click", function () {
-    window.location.href = "./confirmation/index.html";
+    if (!checkoutButton.disabled) {
+      
+      window.location.href = "./confirmation/index.html";
+    }
   });
+
   return checkoutButton;
 }
 
@@ -155,6 +170,7 @@ export async function updateCartUI() {
   updateCartText();
   updateCartIcon();
 }
+
 
 async function updatePriceTotal() {
   const totalPriceElement = document.querySelector(".total-price");
