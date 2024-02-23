@@ -21,7 +21,14 @@ function generateProductDisplay(product) {
   const productDetails = createClass(createElement("div"), "product-page-details");
   productDetails.appendChild(createClass(createElement("h1"), "product-page-title")).textContent = product.title;
   productDetails.appendChild(createClass(createElement("p"), "product-page-description")).textContent = product.description;
-  productDetails.appendChild(createClass(createElement("p"), "product-page-price")).textContent = product.price;
+  if (product.onSale === true){
+    productDetails.appendChild(createClass(createElement("p"),"regular-price-discount-price")).textContent = product.discountedPrice;
+    productDetails.appendChild(createClass(createElement("p"), "product-discounted-price")).textContent = product.price;
+  } else {
+    productDetails.appendChild(createClass(createElement("p"), "product-page-price")).textContent = product.price;
+  }
+
+
 
   const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
   addToCartButton.textContent = "Add to Cart";
