@@ -56,12 +56,12 @@ export async function displayProduct(productId) {
 }
 
 
-function main(){
-  updateCartIcon();
+async function main(){
+  await updateCartIcon();
   // Get the product ID from the URL
   const urlProductId = getIdFromUrl();
   // Pass in the productid fetched from url and display that item
-  displayProduct(urlProductId);
+  await displayProduct(urlProductId);
 
 
 }
