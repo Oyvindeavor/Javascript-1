@@ -37,10 +37,19 @@ a {
 }
 
 
-
 footer{
     width: 100%;
 }
+
+/* Google icons */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 
 
 
@@ -295,18 +304,19 @@ h2{
     margin-left: 10px;
 }
 
-.shopping-cart{
-    font-size: 30px;
+#shopping-cart-icon{
+    font-size: 40px;
     color: #00ff1a; 
 }
 
 .shopping-cart p {
     font-weight: 500;
     font-size: 20px;
+    color: #00ff1a;
 }
 
 .cart-counter {
-    background-color: #ff0000; /* Red background color */
+    background-color: #ff0000; 
     color: #ffffff; 
     border-radius: 50%; 
     padding: 0.2rem 0.4rem; 
