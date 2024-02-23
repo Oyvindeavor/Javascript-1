@@ -49,8 +49,9 @@ async function appendOrderItemsAndTotal() {
     }
 
     // 
-    const orderTotalDiv = document.createElement("div");
-    orderTotalDiv.classList.add("order-total");
+    const orderTotalDiv = createClass(createElement("div"), "order-total");
+
+   
     const totalHeading = document.createElement("h2");
     totalHeading.textContent = `Total: $${totalPrice.toFixed(2)}`;
     orderTotalDiv.appendChild(totalHeading);
