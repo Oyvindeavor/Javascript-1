@@ -79,13 +79,12 @@ export async function displayProducts(products) {
   }
 }
 
-function main() {
+async function main() {
+  await updateCartIcon();
   // Create the category buttons
-  createCategoryButtons();
+  await createCategoryButtons();
   // Display all the products
-  displayProducts();
-  // Update the cart icon 
-  updateCartIcon();
+  await displayProducts();
 }
 
 main();
