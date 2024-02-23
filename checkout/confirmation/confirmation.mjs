@@ -3,6 +3,7 @@ import { getProducts } from "../../scripts/utils/fetchdata.mjs";
 import { getCartItemsFromStorage, clearAllCartItemsFromStorage, getProductPrice } from "../../scripts/utils/Cart.mjs";
 import { createClass, createElement } from "../../scripts/utils/domUtils.mjs";
 
+
 async function appendOrderItemsAndTotal() {
   const orderContainer = document.querySelector(".order-details");
 
@@ -19,7 +20,6 @@ async function appendOrderItemsAndTotal() {
       if (product) {
         const orderItemDiv = createClass(createElement("div"), "order-item");
        
-
         const img = document.createElement("img");
         img.src = product.image;
         img.alt = product.title;
@@ -51,7 +51,6 @@ async function appendOrderItemsAndTotal() {
     // 
     const orderTotalDiv = createClass(createElement("div"), "order-total");
 
-   
     const totalHeading = document.createElement("h2");
     totalHeading.textContent = `Total: $${totalPrice.toFixed(2)}`;
     orderTotalDiv.appendChild(totalHeading);
@@ -63,8 +62,10 @@ async function appendOrderItemsAndTotal() {
   }
 }
 
+
 async function main(){
     await appendOrderItemsAndTotal();
 }
+
 
 main();
