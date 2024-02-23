@@ -61,8 +61,9 @@ export async function displaySaleItems() {
 }
 
 function main(){
-  displaySaleItems();
   updateCartIcon();
+  displaySaleItems();
+  
 }
 
 main();
