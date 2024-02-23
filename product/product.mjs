@@ -57,12 +57,12 @@ export async function displayProduct(productId) {
 
 
 function main(){
+  updateCartIcon();
   // Get the product ID from the URL
   const urlProductId = getIdFromUrl();
   // Pass in the productid fetched from url and display that item
   displayProduct(urlProductId);
-  // Update the cart icon
-  updateCartIcon();
+
 
 }
 
