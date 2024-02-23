@@ -67,9 +67,10 @@ export async function displayProducts(products) {
       if (discountPrice) {
         anchorElement.appendChild(discountPrice);
       }
-      productContainer.appendChild(addToCartButton);
+      
 
       productContainer.appendChild(anchorElement);
+      productContainer.appendChild(addToCartButton);
 
       itemsContainer.appendChild(productContainer);
     }
