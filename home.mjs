@@ -36,7 +36,7 @@ export async function displaySaleItems() {
 
         const standardPrice = document.createElement("p");
         standardPrice.textContent = product.price;
-        standardPrice.classList.add("product-regular-price");
+        standardPrice.classList.add("regular-price-discount-price");
         productContainer.appendChild(standardPrice);
 
         const discountPrice = document.createElement("p");
