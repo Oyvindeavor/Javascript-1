@@ -40,16 +40,20 @@ export async function displayProducts(products) {
       productImg.src = product.image;
       productImg.alt = product.title;
 
-      // Create price element and assign it the price
-      const standardPrice = createClass(createElement("p"), "product-regular-price");
-      standardPrice.textContent = product.price;
+     const standardPrice = createClass(createElement("p"), "product-regular-price");
+standardPrice.textContent = `$${product.price}`;
 
-      // If the product has the onSale attribute create a discount price
-      let discountPrice;
-      if (product.onSale === true) {
-        discountPrice = createClass(createElement("p"), "product-discounted-price");
-        discountPrice.textContent = product.discountedPrice;
-      }
+let discountPrice;
+
+if (product.onSale === true) {
+    discountPrice = createClass(createElement("p"), "product-discounted-price");
+    discountPrice.textContent = `$${product.discountedPrice}`;
+
+    // Since the product is on sale, ensure the regular price is styled accordingly
+    standardPrice.classList.remove("product-regular-price");
+    standardPrice.classList.add("regular-price-discount-price");
+}
+
 
       // Create button element and assign it to class
       const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
