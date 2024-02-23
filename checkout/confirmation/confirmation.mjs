@@ -1,13 +1,15 @@
 
 import { getProducts } from "../../scripts/utils/fetchdata.mjs";
 import { getCartItemsFromStorage, clearAllCartItemsFromStorage, getProductPrice } from "../../scripts/utils/Cart.mjs";
-
+import { createClass, createElement } from "../../scripts/utils/domUtils.mjs";
 
 async function appendOrderItemsAndTotal() {
   const orderContainer = document.querySelector(".order-details");
 
   try {
+    // Fetch from api
     const products = await getProducts();
+    // Fetch cart items from storage
     const cartItemsData = await getCartItemsFromStorage();
     let totalPrice = 0;
 
@@ -15,15 +17,14 @@ async function appendOrderItemsAndTotal() {
       const product = products.find((product) => product.id === cartItem.id);
 
       if (product) {
-        const orderItemDiv = document.createElement("div");
-        orderItemDiv.classList.add("order-item");
+        const orderItemDiv = createClass(createElement("div"), "order-item");
+       
 
         const img = document.createElement("img");
         img.src = product.image;
         img.alt = product.title;
 
-        const itemDetailsDiv = document.createElement("div");
-        itemDetailsDiv.classList.add("item-details");
+        const itemDetailsDiv = createClass(createElement("div"), "item-details");
 
         const productNameHeading = document.createElement("h3");
         productNameHeading.textContent = product.title;
@@ -47,7 +48,7 @@ async function appendOrderItemsAndTotal() {
       }
     }
 
-    // Display total price
+    // 
     const orderTotalDiv = document.createElement("div");
     orderTotalDiv.classList.add("order-total");
     const totalHeading = document.createElement("h2");
