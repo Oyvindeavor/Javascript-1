@@ -60,9 +60,9 @@ export async function displaySaleItems() {
   }
 }
 
-function main(){
-  updateCartIcon();
-  displaySaleItems();
+async function main(){
+  await updateCartIcon();
+  await displaySaleItems();
   
 }
 
