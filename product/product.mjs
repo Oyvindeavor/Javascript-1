@@ -20,6 +20,9 @@ function generateProductDisplay(product) {
 
   const productDetails = createClass(createElement("div"), "product-page-details");
   productDetails.appendChild(createClass(createElement("h1"), "product-page-title")).textContent = product.title;
+  productDetails.appendChild(createClass(createElement("p"), "age-rating")).textContent =  `Age rating: ${product.ageRating}`;
+
+
   productDetails.appendChild(createClass(createElement("p"), "product-page-description")).textContent = product.description;
   if (product.onSale === true){
     productDetails.appendChild(createClass(createElement("p"),"regular-price-discount-price")).textContent = product.discountedPrice;
@@ -28,16 +31,13 @@ function generateProductDisplay(product) {
     productDetails.appendChild(createClass(createElement("p"), "product-page-price")).textContent = product.price;
   }
 
-
-
   const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
   addToCartButton.textContent = "Add to Cart";
   addToCartButton.addEventListener("click", () => addToCart(product));
-  productDetails.appendChild(addToCartButton);
 
+  productDetails.appendChild(addToCartButton);
   productContainer.appendChild(productImageContainer);
   productContainer.appendChild(productDetails);
-
   return productContainer;
 }
 
@@ -50,6 +50,7 @@ function appendProductToDOM(productElement) {
 export async function displayProduct(productId) {
   try {
       const products = await getProducts(); // Fetch all products
+      console.log(getProducts());
       
       for (const product of products) {
           if (!productId || product.id === productId) {
