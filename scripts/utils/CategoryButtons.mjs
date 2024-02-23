@@ -2,6 +2,7 @@ import { getProducts } from "../utils/fetchdata.mjs";
 import { createElement, createClass } from "../utils/domUtils.mjs";
 import { displayProducts } from "../../products/products.mjs"
 
+// This fetches product genres
 export async function getProductGenres() {
     try {
         const products = await getProducts();
@@ -12,7 +13,7 @@ export async function getProductGenres() {
     }
 }
 
-// 
+// Combines logic into one 
 export async function createCategoryButtons() {
     try {
         const sortedGenres = await getProductGenres();
@@ -24,6 +25,7 @@ export async function createCategoryButtons() {
     }
 }
 
+// Creates the "show all products" category button
 async function createShowAllCategoryButton(container) {
     try {
         const categoryButton = createClass(createElement("button"), "category-button");
@@ -38,6 +40,7 @@ async function createShowAllCategoryButton(container) {
         console.error("Error creating show all category button:", error);
     }
 }
+
 
 function createCategoryButton(genre, container) {
     const categoryButton = createClass(createElement("button"), "category-button");
