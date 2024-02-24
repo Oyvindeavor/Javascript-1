@@ -4,7 +4,6 @@ import { getProducts } from "../scripts/utils/fetchdata.mjs";
 import { hideLoadingSpinner, showLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 
-
 export async function createCartItems() {
   const products = await getProducts();
   const cartItemsData = await getCartItemsFromStorage();
@@ -45,7 +44,6 @@ export async function createCartItems() {
   cartSummaryContainer.appendChild(checkoutButton);
 }
 
-
 function createCartText(cartItemsData) {
   const cartText = createClass(createElement("h1"), "cart-text");
   const cartLength = cartCounter();
@@ -72,14 +70,14 @@ function createCartItem(product, quantity) {
 
   const productImg = createElement("img");
   productImg.src = product.image;
-  productImg.alt = product.title;
+  productImg.alt = `product title: ${product.title}`;
 
   const itemDetails = createClass(createElement("div"), "item-details");
 
   const productName = createElement("h2");
   productName.textContent = product.title;
 
-  const productPrice = createElement("p");
+  const productPrice = createElement("h3");
   productPrice.textContent = product.onSale ? product.discountedPrice : product.price;
 
   const removeItemButton = createClass(createElement("button"), "remove-item-btn");
@@ -154,7 +152,7 @@ function updateCheckoutButtonState() {
   }
 }
 
-// Updates the cart text 
+// Updates the cart text
 function updateCartText() {
   const cartText = document.querySelector(".cart-text");
   const cartItems = getCartItemsFromStorage();
@@ -167,28 +165,28 @@ function updateCartText() {
 
 // Updates the cart UI
 export async function updateCartUI() {
-  try{
-  const products = await getProducts();
-  const cartItemsData = await getCartItemsFromStorage();
-  const cartItemsContainer = document.querySelector(".cart-items");
-  cartItemsContainer.innerHTML = "";
-  for (const cartItem of cartItemsData) {
-    const product = products.find(function (product) {
-      return product.id === cartItem.id;
-    });
-    if (product) {
-      const cartItemContainer = createCartItem(product, cartItem.quantity);
-      cartItemsContainer.appendChild(cartItemContainer);
+  try {
+    const products = await getProducts();
+    const cartItemsData = await getCartItemsFromStorage();
+    const cartItemsContainer = document.querySelector(".cart-items");
+    cartItemsContainer.innerHTML = "";
+    for (const cartItem of cartItemsData) {
+      const product = products.find(function (product) {
+        return product.id === cartItem.id;
+      });
+      if (product) {
+        const cartItemContainer = createCartItem(product, cartItem.quantity);
+        cartItemsContainer.appendChild(cartItemContainer);
+      }
     }
-  }
-  updatePriceTotal();
-  updateCartText();
-  updateCartIcon();
-  updateCheckoutButtonState();
-} catch(error){
-  console.error("Error updating cart UI:", error);
+    updatePriceTotal();
+    updateCartText();
+    updateCartIcon();
+    updateCheckoutButtonState();
+  } catch (error) {
+    console.error("Error updating cart UI:", error);
     displayErrorMessage("We're having trouble updating the cart. Please try again later.");
-}
+  }
 }
 
 async function updatePriceTotal() {
@@ -211,6 +209,5 @@ async function main() {
     hideLoadingSpinner();
   }
 }
-
 
 main();
