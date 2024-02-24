@@ -1,3 +1,5 @@
+
+// Shows error message in the middle of the screen with a timeout.
 export function displayErrorMessage(message) {
     const errorElement = document.createElement('div');
     errorElement.textContent = message;
