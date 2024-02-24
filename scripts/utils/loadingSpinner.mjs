@@ -3,16 +3,12 @@
  */
 
 export function showLoadingSpinner() {
-    document.body.style.cursor = 'wait'; 
-  }
-  
+  document.body.style.cursor = "wait";
+}
+
 /**
  * Hides the loading spinner by setting the cursor body.style to "auto".
  */
-  export function hideLoadingSpinner() {
-    document.body.style.cursor = 'auto'; 
-  }
-  
-
-
-  
+export function hideLoadingSpinner() {
+  document.body.style.cursor = "auto";
+}
