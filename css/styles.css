@@ -22,7 +22,8 @@ body,html {
 }
 
 header{
-
+    padding-left: 40px;
+    padding-right: 40px;
     background: #2c3e50; 
 }
 
@@ -46,6 +47,36 @@ footer{
     
 }
 
+/*Terms and conditions page*/
+.terms-conditions {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.terms-conditions h1,
+.terms-conditions h2 {
+    color: #333;
+}
+
+.terms-conditions p,
+.terms-conditions ul {
+    margin-bottom: 20px;
+}
+
+.terms-conditions a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.terms-conditions a:hover {
+    text-decoration: underline;
+}
 
 /* Footer content */
 .footer-container{
@@ -66,7 +97,7 @@ footer{
 }
 
 .logo-section > img{
-    width: 30px;
+    width: 60px;
 }
 
 .footer-links{
