@@ -28,7 +28,7 @@ export async function displaySaleItems() {
 
         const productImg = document.createElement("img");
         productImg.src = product.image;
-        productImg.alt = product.title;
+        productImg.alt = `product title: ${product.title} `
         anchorElement.appendChild(productImg);
 
         const productTitle = document.createElement("h2");
@@ -36,12 +36,12 @@ export async function displaySaleItems() {
         productTitle.classList.add("product-title");
         anchorElement.appendChild(productTitle);
 
-        const standardPrice = document.createElement("p");
+        const standardPrice = document.createElement("h3");
         standardPrice.textContent = product.price;
         standardPrice.classList.add("regular-price-discount-price");
         productContainer.appendChild(standardPrice);
 
-        const discountPrice = document.createElement("p");
+        const discountPrice = document.createElement("h4");
         discountPrice.textContent = product.discountedPrice;
         discountPrice.classList.add("product-discounted-price");
         productContainer.appendChild(discountPrice);
@@ -69,6 +69,7 @@ async function main() {
     await updateCartIcon();
     const products = await getProducts();
     await displaySaleItems();
+    
   } catch (error) {
     console.error("Error occurred: ", error);
     displayErrorMessage("We're having trouble with your request. Please refresh the page and try again.");
