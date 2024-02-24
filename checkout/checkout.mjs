@@ -1,7 +1,8 @@
 import { createElement, createClass } from "../scripts/utils/domUtils.mjs";
 import { getCartItemsFromStorage, cartCounter, updateCartIcon, removeItemFromCart, calculateTotal } from "../scripts/utils/Cart.mjs";
 import { getProducts } from "../scripts/utils/fetchdata.mjs";
-import { updateCartInStorage } from "../scripts/utils/Cart.mjs";
+import { hideLoadingSpinner, showLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
+import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 
 export async function createCartItems() {
   const products = await getProducts();
@@ -35,7 +36,6 @@ export async function createCartItems() {
   }
 
   const totalPrice = createTotalPriceElement(products, cartItemsData);
-  cartSummaryContainer.appendChild(totalPrice);
 
   cartSummaryContainer.innerHTML = "";
   cartSummaryContainer.appendChild(totalPrice);
@@ -43,6 +43,7 @@ export async function createCartItems() {
   const checkoutButton = createCheckoutButton();
   cartSummaryContainer.appendChild(checkoutButton);
 }
+
 
 function createCartText(cartItemsData) {
   const cartText = createClass(createElement("h1"), "cart-text");
@@ -140,6 +141,7 @@ function createCheckoutButton() {
   return checkoutButton;
 }
 
+// Updates the cart text 
 function updateCartText() {
   const cartText = document.querySelector(".cart-text");
   const cartItems = getCartItemsFromStorage();
@@ -150,7 +152,9 @@ function updateCartText() {
   cartText.textContent = "You have " + totalQuantity + " items in your shopping cart";
 }
 
+// Updates the cart UI
 export async function updateCartUI() {
+  try{
   const products = await getProducts();
   const cartItemsData = await getCartItemsFromStorage();
   const cartItemsContainer = document.querySelector(".cart-items");
@@ -167,6 +171,10 @@ export async function updateCartUI() {
   updatePriceTotal();
   updateCartText();
   updateCartIcon();
+} catch(error){
+  console.error("Error updating cart UI:", error);
+    displayErrorMessage("We're having trouble updating the cart. Please try again later.");
+}
 }
 
 async function updatePriceTotal() {
@@ -178,8 +186,17 @@ async function updatePriceTotal() {
 }
 
 async function main() {
-  await updateCartIcon();
-  await createCartItems();
+  showLoadingSpinner();
+  try {
+    await updateCartIcon();
+    await createCartItems();
+  } catch (error) {
+    console.error("Error initializing the cart page:", error);
+    displayErrorMessage("We're having trouble setting up the cart. Please refresh or try again later.");
+  } finally {
+    hideLoadingSpinner();
+  }
 }
+
 
 main();
