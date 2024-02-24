@@ -1,6 +1,9 @@
 import { createClass, createElement } from "./domUtils.mjs"
 import { getProducts } from "./fetchdata.mjs";
 
-async function generateProductCarousel(){
+export async function generateProductCarousel(){
+    const mainElement = document.querySelector("main");
+    const itemsContainer = createClass(createElement("div"), ".items-container");
+
     
 }
