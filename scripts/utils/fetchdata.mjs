@@ -1,4 +1,4 @@
-// Import loading spinners
+// Import loading spinners, error message
 import { displayErrorMessage } from "./errorUserMessage.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "./loadingSpinner.mjs";
 
