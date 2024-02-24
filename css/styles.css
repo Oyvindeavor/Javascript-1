@@ -182,7 +182,7 @@ footer {
 .nav-links li {}
 
 .nav-links li a {
-    color: black;
+    color: #FFFFFF;
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -190,7 +190,8 @@ footer {
 }
 
 .nav-links li a:hover {
-    background-color: #f0f0f0;
+    background-color: #00ff1a;
+    color: black;
 }
 
 
@@ -430,19 +431,6 @@ a {
 
 
 
-/* Footer Icons */
-.footer-icons {
-    background: #2c3e50;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    height: 100%;
-}
-
-.footer-icons i {
-    font-size: 24px;
-    margin: 0 10px;
-}
 
 h2 {
     font-size: 30px;
