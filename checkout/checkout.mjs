@@ -4,6 +4,7 @@ import { getProducts } from "../scripts/utils/fetchdata.mjs";
 import { hideLoadingSpinner, showLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 
+
 export async function createCartItems() {
   const products = await getProducts();
   const cartItemsData = await getCartItemsFromStorage();
@@ -137,8 +138,20 @@ function createCheckoutButton() {
       window.location.href = "./confirmation/index.html";
     }
   });
-
   return checkoutButton;
+}
+
+function updateCheckoutButtonState() {
+  const checkoutButton = document.querySelector(".checkout-btn");
+  const cartItems = getCartItemsFromStorage();
+
+  if (cartItems.length > 0) {
+    checkoutButton.disabled = false;
+    checkoutButton.classList.remove("checkout-btn-disabled");
+  } else {
+    checkoutButton.disabled = true;
+    checkoutButton.classList.add("checkout-btn-disabled");
+  }
 }
 
 // Updates the cart text 
@@ -171,6 +184,7 @@ export async function updateCartUI() {
   updatePriceTotal();
   updateCartText();
   updateCartIcon();
+  updateCheckoutButtonState();
 } catch(error){
   console.error("Error updating cart UI:", error);
     displayErrorMessage("We're having trouble updating the cart. Please try again later.");
