@@ -63,15 +63,15 @@ export async function displaySaleItems() {
 
 async function main() {
   showLoadingSpinner();
-  
+
   try {
-    await updateCartIcon(); 
-    await displaySaleItems(); 
+    await updateCartIcon();
+    await displaySaleItems();
   } catch (error) {
     console.error("Error occurred: ", error);
-    displayErrorMessage("We're having trouble with your request. Please refresh the page and try again."); 
+    displayErrorMessage("We're having trouble with your request. Please refresh the page and try again.");
   } finally {
-    hideLoadingSpinner(); 
+    hideLoadingSpinner();
   }
 }
 
