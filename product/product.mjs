@@ -14,9 +14,9 @@ export function getIdFromUrl() {
     return productId;
   } catch (error) {
     console.error("Error getting Id from url check the function", error);
+    displayErrorMessage("Error fetching the product id, please refresh or try again");
   }
 }
-
 
 // Function to generate product HTML
 function generateProductDisplay(product) {
