@@ -3,6 +3,7 @@ import { getProducts } from "./scripts/utils/fetchdata.mjs";
 import { addToCart, updateCartIcon } from "./scripts/utils/Cart.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "./scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "./scripts/utils/errorUserMessage.mjs";
+import { generateProductCarousel } from "./scripts/utils/productCarousel.mjs";
 
 export async function displaySaleItems() {
   try {
@@ -66,6 +67,7 @@ async function main() {
 
   try {
     await updateCartIcon();
+    const products = await getProducts();
     await displaySaleItems();
   } catch (error) {
     console.error("Error occurred: ", error);
