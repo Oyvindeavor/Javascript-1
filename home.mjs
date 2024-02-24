@@ -49,7 +49,7 @@ export async function displaySaleItems() {
         addToCartButton.classList.add("add-to-cart-btn");
 
         addToCartButton.addEventListener("click", function () {
-          addToCart(product); 
+          addToCart(product);
         });
 
         productContainer.appendChild(addToCartButton);
@@ -60,10 +60,9 @@ export async function displaySaleItems() {
   }
 }
 
-async function main(){
+async function main() {
   await updateCartIcon();
   await displaySaleItems();
-  
 }
 
 main();
