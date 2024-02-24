@@ -3,6 +3,7 @@ import { createClass, createElement } from "../scripts/utils/domUtils.mjs"; // C
 import { createCategoryButtons } from "../scripts/utils/CategoryButtons.mjs"; // Creates the category buttons
 import { updateCartIcon, addToCart } from "/../scripts/utils/cart.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
+import { showLoadingSpinner, hideLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
 
 export async function displayProducts(products) {
   try {
@@ -82,24 +83,27 @@ export async function displayProducts(products) {
 
 async function main() {
   try {
+    showLoadingSpinner();
     await updateCartIcon();
-  } catch(error){
+  } catch (error) {
     console.error("Error at updating the cart icon: ", error);
     displayErrorMessage("There was a problem updating the cart, try refreshing the page or clearing cache");
   }
-  try{
-    // Create the category buttons
+  try {
+    showLoadingSpinner();
     await createCategoryButtons();
-  } catch(error){
+  } catch (error) {
     console.error("Error at creating category buttons: ", error);
     displayErrorMessage("Were having trouble displaying the category buttons, try refreshing the page or clearing the cache");
   }
-  try{
-    // Display all the products
+  try {
+    showLoadingSpinner();
     await displayProducts();
-  } catch(error){
+  } catch (error) {
     console.error("Error displaying the products: ", error);
     displayErrorMessage("Were having problems displaying the products");
+  } finally {
+    hideLoadingSpinner();
   }
 }
 
