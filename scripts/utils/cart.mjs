@@ -1,23 +1,17 @@
+import { displayErrorMessage } from "./errorUserMessage.mjs";
+
 // Add product(s) to cart
 export function addToCart(product) {
-  // Get the existing items from storage
   let cartItems = getCartItemsFromStorage();
-
   const existingItemIndex = cartItems.findIndex(function (item) {
     return item.id === product.id;
   });
-  // Check if the product exists in the cart
   if (existingItemIndex !== -1) {
-    // If the product exist increment by 1
     cartItems[existingItemIndex].quantity++;
   } else {
-    // If the product does not exist add it to the cart with a quantity of 1
     cartItems.push({ id: product.id, quantity: 1 });
   }
-  // Update the new array in storage
   updateCartInStorage(cartItems);
-
-  // Update the cart icon to reflect items in storage
   updateCartIcon();
   return cartItems;
 }
@@ -96,16 +90,18 @@ export function cartCounter() {
 // Updates the cart icon to show number of items in the cart > get the total quantity in local storage from cartCounter()
 // Select the counter graphic > change the text to the quantity
 export async function updateCartIcon() {
-  const cartQuantity = cartCounter();
-  const cartIconCounter = document.querySelector(".cart-counter");
-
-  // If cartquantity is greater or equal to 1 show it
-  if (cartQuantity >= 1) {
-    cartIconCounter.style.display = "block";
-    cartIconCounter.textContent = cartQuantity;
-  } else {
-    // else dont show it
-    cartIconCounter.style.display = "none";
-    cartIconCounter.textContent = "";
+  try {
+    const cartQuantity = cartCounter();
+    const cartIconCounter = document.querySelector(".cart-counter");
+    if (cartQuantity >= 1) {
+      cartIconCounter.style.display = "block";
+      cartIconCounter.textContent = cartQuantity;
+    } else {
+      cartIconCounter.style.display = "none";
+      cartIconCounter.textContent = "";
+    }
+  } catch (error) {
+    console.error("error updating the cart icon", error);
+    displayErrorMessage("Were having trouble updating the cart, please refresh or try again later");
   }
 }
