@@ -14,10 +14,10 @@ export async function createCartItems() {
     cartPageContainer = createCartPageContainer();
     mainElement.appendChild(cartPageContainer);
   } else {
-    // If it is dont create and just clear the cart items 
+    // If it is dont create and just clear the cart items
     const cartItemsContainer = cartPageContainer.querySelector(".cart-items");
     if (cartItemsContainer) {
-      cartItemsContainer.innerHTML = ''; 
+      cartItemsContainer.innerHTML = "";
     }
   }
 
@@ -27,7 +27,7 @@ export async function createCartItems() {
   const cartItemsContainer = createCartItemsContainer(cartItemsData, products);
   cartPageContainer.appendChild(cartItemsContainer);
 
-  // Check to see if it exists 
+  // Check to see if it exists
   let cartSummaryContainer = cartPageContainer.querySelector(".cart-summary");
   if (!cartSummaryContainer) {
     cartSummaryContainer = createCartSummaryContainer();
@@ -37,7 +37,7 @@ export async function createCartItems() {
   const totalPrice = createTotalPriceElement(products, cartItemsData);
   cartSummaryContainer.appendChild(totalPrice);
 
-  cartSummaryContainer.innerHTML = '';
+  cartSummaryContainer.innerHTML = "";
   cartSummaryContainer.appendChild(totalPrice);
 
   const checkoutButton = createCheckoutButton();
@@ -89,9 +89,8 @@ function createCartItem(product, quantity) {
   removeItemButton.addEventListener("click", function () {
     const productId = product.id;
     removeItemFromCart(productId, quantity);
-    updateCartIcon()
+    updateCartIcon();
     updateCartUI();
-
   });
 
   cartItemContainer.appendChild(productImg);
@@ -130,11 +129,10 @@ function createCheckoutButton() {
   // Check to see if there are items in the cart and disable the button if there are none
   if (numberOfItemsInCart < 1) {
     checkoutButton.disabled = true;
-    checkoutButton.classList.add("checkout-btn-disabled"); 
+    checkoutButton.classList.add("checkout-btn-disabled");
   }
   checkoutButton.addEventListener("click", function () {
     if (!checkoutButton.disabled) {
-      
       window.location.href = "./confirmation/index.html";
     }
   });
@@ -170,7 +168,6 @@ export async function updateCartUI() {
   updateCartText();
   updateCartIcon();
 }
-
 
 async function updatePriceTotal() {
   const totalPriceElement = document.querySelector(".total-price");
