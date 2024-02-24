@@ -37,7 +37,6 @@ function generateProductDisplay(product) {
   } else {
     productDetails.appendChild(createClass(createElement("p"), "product-page-price")).textContent = `${product.price}$`
   }
-
   const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
   addToCartButton.textContent = "Add to Cart";
   addToCartButton.addEventListener("click", () => addToCart(product));
@@ -77,8 +76,6 @@ async function main(){
   const urlProductId = getIdFromUrl();
   // Pass in the productid fetched from url and display that item
   await displayProduct(urlProductId);
-
-
 }
 
 main();
