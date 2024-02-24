@@ -661,6 +661,27 @@ h2 {
     z-index: 1000; 
   }
 
+  /* Product carousel */
+  .carousel {
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px; 
+  }
+  
+  .carousel-items {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .carousel-item {
+    width: 100%; 
+    margin-right: 20px; 
+  }
+
+  .carousel-item > img{
+    height: 150px;
+  }
+
 @media (max-width: 1100px) {
 
     .items-container {
