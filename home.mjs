@@ -2,6 +2,7 @@
 import { getProducts } from "./scripts/utils/fetchdata.mjs";
 import { addToCart, updateCartIcon } from "./scripts/utils/Cart.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "./scripts/utils/loadingSpinner.mjs";
+import { displayErrorMessage } from "./scripts/utils/errorUserMessage.mjs";
 
 export async function displaySaleItems() {
   try {
@@ -61,21 +62,16 @@ export async function displaySaleItems() {
 }
 
 async function main() {
+  showLoadingSpinner();
+  
   try {
-    showLoadingSpinner();
-    await updateCartIcon();
+    await updateCartIcon(); 
+    await displaySaleItems(); 
   } catch (error) {
-    console.error("Error updating the cart icon: ", error);
-    displaySaleItems("Were having trouble updating the cart, please refresh the page and try again");
-  }
-  try {
-    showLoadingSpinner();
-    await displaySaleItems();
-  } catch (error) {
-    console.error("Error displaying the sale items: ", error);
-    displaySaleItems("Were having trouble displaying the sale items, Try refreshing the page");
+    console.error("Error occurred: ", error);
+    displayErrorMessage("We're having trouble with your request. Please refresh the page and try again."); 
   } finally {
-    hideLoadingSpinner();
+    hideLoadingSpinner(); 
   }
 }
 
