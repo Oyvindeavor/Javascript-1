@@ -1,9 +1,7 @@
-
-
 import { getProducts } from "../scripts/utils/fetchdata.mjs"; // Fetches products from api and returns JSON
 import { createClass, createElement } from "../scripts/utils/domUtils.mjs"; // Creates element and creates class
-import {createCategoryButtons} from"../scripts/utils/CategoryButtons.mjs" // Creates the category buttons
-import { updateCartIcon,addToCart } from "/../scripts/utils/cart.mjs";
+import { createCategoryButtons } from "../scripts/utils/CategoryButtons.mjs"; // Creates the category buttons
+import { updateCartIcon, addToCart } from "/../scripts/utils/cart.mjs";
 
 export async function displayProducts(products) {
   try {
@@ -40,20 +38,19 @@ export async function displayProducts(products) {
       productImg.src = product.image;
       productImg.alt = product.title;
 
-     const standardPrice = createClass(createElement("p"), "product-regular-price");
-standardPrice.textContent = `$${product.price}`;
+      const standardPrice = createClass(createElement("p"), "product-regular-price");
+      standardPrice.textContent = `$${product.price}`;
 
-let discountPrice;
+      let discountPrice;
 
-if (product.onSale === true) {
-    discountPrice = createClass(createElement("p"), "product-discounted-price");
-    discountPrice.textContent = `$${product.discountedPrice}`;
+      if (product.onSale === true) {
+        discountPrice = createClass(createElement("p"), "product-discounted-price");
+        discountPrice.textContent = `$${product.discountedPrice}`;
 
-    // Since the product is on sale, ensure the regular price is styled accordingly
-    standardPrice.classList.remove("product-regular-price");
-    standardPrice.classList.add("regular-price-discount-price");
-}
-
+        // Since the product is on sale, ensure the regular price is styled accordingly
+        standardPrice.classList.remove("product-regular-price");
+        standardPrice.classList.add("regular-price-discount-price");
+      }
 
       // Create button element and assign it to class
       const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
@@ -71,7 +68,6 @@ if (product.onSale === true) {
       if (discountPrice) {
         anchorElement.appendChild(discountPrice);
       }
-      
 
       productContainer.appendChild(anchorElement);
       productContainer.appendChild(addToCartButton);
