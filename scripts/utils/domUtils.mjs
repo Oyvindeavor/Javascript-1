@@ -8,3 +8,4 @@ export function createClass(element, className) {
 export function createElement(element) {
   return document.createElement(element);
 }
+
