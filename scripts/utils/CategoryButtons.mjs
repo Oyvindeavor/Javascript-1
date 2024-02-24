@@ -12,11 +12,13 @@ export async function getProductGenres() {
     return [...uniqueGenres].sort();
   } catch (error) {
     console.error("Error fetching product genres:", error);
+    return [];
   }
 }
 
 // Combines logic into one
 export async function createCategoryButtons() {
+  showLoadingSpinner();
   try {
     const sortedGenres = await getProductGenres();
     const categoryButtonsContainer = document.querySelector(".category-buttons");
@@ -24,6 +26,8 @@ export async function createCategoryButtons() {
     sortedGenres.forEach((genre) => createCategoryButton(genre, categoryButtonsContainer));
   } catch (error) {
     console.error("Could not create category buttons:", error);
+  } finally {
+    hideLoadingSpinner();
   }
 }
 
@@ -40,10 +44,11 @@ async function createShowAllCategoryButton(container) {
     });
   } catch (error) {
     console.error("Error creating show all category button:", error);
+    displayErrorMessage("There was a problem generating or displaying the categorybuttons, please refresh the page or try later");
   }
 }
 
-// Creates category buttons 
+// Creates category button
 function createCategoryButton(genre, container) {
   const categoryButton = createClass(createElement("button"), "category-button");
   categoryButton.textContent = genre;
@@ -58,27 +63,32 @@ function createCategoryButton(genre, container) {
       displayProducts(filteredProducts);
     } catch (error) {
       console.error("Could not handle category button click:", error);
-      displayErrorMessage("There was a problem displaying category buttons")
-    } finally{
-        hideLoadingSpinner();
+      displayErrorMessage("There was a problem displaying category buttons");
+    } finally {
+      hideLoadingSpinner();
     }
   });
 }
 
 // Filter the products by genre
 export function filterProductsByGenre(products, genre) {
-    try{
-        return products.filter((product) => product.genre === genre);
-    } catch(error){
-        console.error("Problem filtering products by genre: ", error)
-    }
+  try {
+    return products.filter((product) => product.genre === genre);
+  } catch (error) {
+    console.error("Problem filtering products by genre: ", error);
+  }
 }
 
+// Clears the product container
 export function clearProducts(container) {
-  const containerElement = document.querySelector(container);
-  if (containerElement) {
-    containerElement.innerHTML = "";
-  } else {
-    console.error("Container not found:", container);
+  try {
+    const containerElement = document.querySelector(container);
+    if (containerElement) {
+      containerElement.innerHTML = "";
+    } else {
+      console.error("Container not found:", container);
+    }
+  } catch (error) {
+    console.error("Problem clearing products", error);
   }
 }
