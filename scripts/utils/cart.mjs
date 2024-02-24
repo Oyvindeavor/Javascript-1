@@ -1,4 +1,3 @@
-
 // Add product(s) to cart
 export function addToCart(product) {
   // Get the existing items from storage
@@ -97,17 +96,16 @@ export function cartCounter() {
 // Updates the cart icon to show number of items in the cart > get the total quantity in local storage from cartCounter()
 // Select the counter graphic > change the text to the quantity
 export async function updateCartIcon() {
-  const cartQuantity = cartCounter(); 
+  const cartQuantity = cartCounter();
   const cartIconCounter = document.querySelector(".cart-counter");
 
   // If cartquantity is greater or equal to 1 show it
   if (cartQuantity >= 1) {
-     cartIconCounter.style.display = "block"; 
-    cartIconCounter.textContent = cartQuantity; 
+    cartIconCounter.style.display = "block";
+    cartIconCounter.textContent = cartQuantity;
   } else {
     // else dont show it
-    cartIconCounter.style.display = "none"; 
-    cartIconCounter.textContent = ""; 
+    cartIconCounter.style.display = "none";
+    cartIconCounter.textContent = "";
   }
 }
-
