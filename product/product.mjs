@@ -5,14 +5,19 @@ import { addToCart } from "../scripts/utils/Cart.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 // Gets the ID from the url
 export function getIdFromUrl() {
-  const filterUrl = new URLSearchParams(window.location.search);
+  try {
+    const filterUrl = new URLSearchParams(window.location.search);
   const productId = filterUrl.get("productId");
   return productId;
+  } catch(error){
+    console.error("Error getting Id from url check the function", error)
+  }
 }
 
 // Function to generate product HTML
 function generateProductDisplay(product) {
-  // Creating the main container
+  try{
+      // Creating the main container
   const productContainer = createClass(createElement("div"), "product-page-container");
 
   // Creating the product Image container
@@ -43,6 +48,10 @@ function generateProductDisplay(product) {
   productContainer.appendChild(productImageContainer);
   productContainer.appendChild(productDetails);
   return productContainer;
+  } catch(error){
+    console.error("Error at generateAndDisplayProduct in product.mjs, trouble generating html ", error)
+  }
+
 }
 
 // Function to append product Product HTML elements to the DOM
@@ -62,7 +71,7 @@ export async function displayProduct(productId) {
     }
   } catch (error) {
     console.error("Error fetching or displaying product:", error);
-    displayErrorMessage("There was a problem fetching product data, try refreshing the page or check your network configuration")
+    displayErrorMessage("There was a problem displaying the product, try refreshing the page")
   }
 }
 
