@@ -13,7 +13,7 @@
 body,
 html {
     background-color: #3A2A53;
-    color: black;
+    color: #FFFFFF;
     font-family: 'Inconsolata', monospace;
     font-family: var(--main-font-family);
     height: 100%;
@@ -22,13 +22,13 @@ html {
     flex-direction: column;
 }
 
-html{
+html {
     overflow-x: hidden;
-  /* Fix for scrollbar jumping */
-  margin-right: calc(-1 * (100vw - 100%));
+    /* Fix for scrollbar jumping */
+    margin-right: calc(-1 * (100vw - 100%));
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     animation: fadeIn 0.5s ease-out;
@@ -36,13 +36,14 @@ body{
 
 @keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
-  }
-  
+}
+
 
 header {
     padding-left: 40px;
@@ -53,7 +54,7 @@ header {
 main {
     flex-grow: 1;
     margin-top: 10px;
-    margin-bottom: 10px; /* Adjust based on your footer height */
+    margin-bottom: 10px;
     padding: 0 40px;
 }
 
@@ -299,7 +300,7 @@ a {
 }
 
 .product-regular-price {
-    color: #000;
+    color: #999;
 }
 
 /* Regular price with a line through for displaying if the product is on sale */
@@ -633,50 +634,48 @@ h2 {
 
 /* Error MEssage */
 .error-message {
-    position: fixed; 
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     padding: 20px;
-    background-color: #ffdddd; 
-    color: #d8000c; 
+    background-color: #ffdddd;
+    color: #d8000c;
     border: 1px solid #d8000c;
     border-radius: 5px;
     text-align: center;
     width: auto;
-    max-width: 80%; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    z-index: 1000; 
-  }
+    max-width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-  /* Product carousel */
-  .carousel {
+/* Product carousel */
+.carousel {
     overflow: hidden;
     width: 100%;
-    max-width: 600px; 
-  }
-  
-  .carousel-items {
+    max-width: 600px;
+}
+
+.carousel-items {
     display: flex;
     transition: transform 0.5s ease;
-  }
-  
-  .carousel-item {
-    width: 100%; 
-    margin-right: 20px; 
-  }
+}
 
-  .carousel-item > img{
+.carousel-item {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.carousel-item>img {
     height: 150px;
-  }
+}
 
 @media (max-width: 1100px) {
 
     .items-container {
         grid-template-columns: auto auto auto;
     }
-
-
 
     .nav-links {
         display: none;
