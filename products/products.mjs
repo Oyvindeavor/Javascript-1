@@ -28,14 +28,14 @@ export async function displayProducts(products) {
 
       const productImg = createElement("img");
       productImg.src = product.image;
-      productImg.alt = product.title;
+      productImg.alt = `Product title: ${product.title}`;
 
-      const standardPrice = createClass(createElement("p"), "product-regular-price");
+      const standardPrice = createClass(createElement("h3"), "product-regular-price");
       standardPrice.textContent = `$${product.price}`;
 
       let discountPrice;
       if (product.onSale === true) {
-        discountPrice = createClass(createElement("p"), "product-discounted-price");
+        discountPrice = createClass(createElement("h4"), "product-discounted-price");
         discountPrice.textContent = `$${product.discountedPrice}`;
         standardPrice.classList.remove("product-regular-price");
         standardPrice.classList.add("regular-price-discount-price");
