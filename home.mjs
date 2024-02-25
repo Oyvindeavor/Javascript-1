@@ -1,6 +1,6 @@
 "use strict";
 import { getProducts } from "./scripts/utils/fetchdata.mjs";
-import { addToCart, updateCartIcon } from "./scripts/utils/Cart.mjs";
+import { addToCart, updateCartIcon, addToCartButtonConfirmation } from "./scripts/utils/Cart.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "./scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "./scripts/utils/errorUserMessage.mjs";
 import { setupHamburgerMenu } from "./scripts/utils/hamburgerMenu.mjs";
@@ -8,10 +8,9 @@ import { setupHamburgerMenu } from "./scripts/utils/hamburgerMenu.mjs";
 export async function displaySaleItems() {
   try {
     const products = await getProducts();
-    let count = 0; 
-
+    let count = 0;
     for (const product of products) {
-      if (product.onSale && count < 4) { 
+      if (product.onSale && count < 4) {
         const productContainer = document.createElement("div");
         productContainer.classList.add("product-container");
         document.querySelector(".items-container").appendChild(productContainer);
@@ -45,20 +44,20 @@ export async function displaySaleItems() {
         addToCartButton.classList.add("add-to-cart-btn");
         addToCartButton.addEventListener("click", function () {
           addToCart(product);
+          addToCartButtonConfirmation(this);
         });
         productContainer.appendChild(addToCartButton);
 
-        count++; 
+        count++;
       }
     }
-
     if (products.length > 4) {
       const viewMoreContainer = document.querySelector(".items-container");
       const viewMoreButton = document.createElement("button");
       viewMoreButton.textContent = "View More";
       viewMoreButton.classList.add("view-more-btn");
       viewMoreButton.addEventListener("click", function () {
-        window.location.href = '/products/index.html';
+        window.location.href = "/products/index.html";
       });
       viewMoreContainer.appendChild(viewMoreButton);
     }
@@ -67,7 +66,6 @@ export async function displaySaleItems() {
   }
 }
 
-
 async function main() {
   showLoadingSpinner();
   setupHamburgerMenu();
@@ -75,7 +73,6 @@ async function main() {
     await updateCartIcon();
     const products = await getProducts();
     await displaySaleItems();
-    
   } catch (error) {
     console.error("Error occurred: ", error);
     displayErrorMessage("We're having trouble with your request. Please refresh the page and try again.");
