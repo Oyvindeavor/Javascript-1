@@ -3,6 +3,7 @@ import { getCartItemsFromStorage, cartCounter, updateCartIcon, removeItemFromCar
 import { getProducts } from "../scripts/utils/fetchdata.mjs";
 import { hideLoadingSpinner, showLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
+import { setupHamburgerMenu } from "../scripts/utils/hamburgerMenu.mjs";
 
 export async function createCartItems() {
   const products = await getProducts();
@@ -198,6 +199,7 @@ async function updatePriceTotal() {
 }
 
 async function main() {
+  setupHamburgerMenu();
   showLoadingSpinner();
   try {
     await updateCartIcon();
