@@ -1,4 +1,5 @@
 import { updateCartIcon } from "../scripts/utils/Cart.mjs";
+import { setupHamburgerMenu } from "../scripts/utils/hamburgerMenu.mjs";
 
 function submitContactForm(event) {
     event.preventDefault();
@@ -15,6 +16,7 @@ function initializeSubmitButton() {
 }
 
 async function main() {
+    setupHamburgerMenu();
     await updateCartIcon();
     initializeSubmitButton();
 }
