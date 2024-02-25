@@ -3,32 +3,25 @@ import { getProducts } from "./scripts/utils/fetchdata.mjs";
 import { addToCart, updateCartIcon } from "./scripts/utils/Cart.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "./scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "./scripts/utils/errorUserMessage.mjs";
-import { generateProductCarousel } from "./scripts/utils/productCarousel.mjs";
 
 export async function displaySaleItems() {
   try {
     const products = await getProducts();
+    let count = 0; 
 
     for (const product of products) {
-      if (product.onSale) {
+      if (product.onSale && count < 4) { 
         const productContainer = document.createElement("div");
         productContainer.classList.add("product-container");
         document.querySelector(".items-container").appendChild(productContainer);
 
         const anchorElement = document.createElement("a");
+        anchorElement.href = `product/index.html?productId=${product.id}&productTitle=${encodeURIComponent(product.title)}`;
         productContainer.appendChild(anchorElement);
-        anchorElement.addEventListener("click", function () {
-          try {
-            anchorElement.href = `product/index.html?productId=${product.id}&productTitle=${encodeURIComponent(product.title)}`;
-            return product;
-          } catch (error) {
-            console.error("Error displaying product:", error);
-          }
-        });
 
         const productImg = document.createElement("img");
         productImg.src = product.image;
-        productImg.alt = `product title: ${product.title} `
+        productImg.alt = `product title: ${product.title}`;
         anchorElement.appendChild(productImg);
 
         const productTitle = document.createElement("h2");
@@ -37,25 +30,36 @@ export async function displaySaleItems() {
         anchorElement.appendChild(productTitle);
 
         const standardPrice = document.createElement("h3");
-        standardPrice.textContent = product.price;
-        standardPrice.classList.add("regular-price-discount-price");
+        standardPrice.textContent = `$${product.price}`;
+        standardPrice.classList.add("regular-price");
         productContainer.appendChild(standardPrice);
 
         const discountPrice = document.createElement("h4");
-        discountPrice.textContent = product.discountedPrice;
+        discountPrice.textContent = `$${product.discountedPrice}`;
         discountPrice.classList.add("product-discounted-price");
         productContainer.appendChild(discountPrice);
 
         const addToCartButton = document.createElement("button");
         addToCartButton.textContent = "Add to Cart";
         addToCartButton.classList.add("add-to-cart-btn");
-
         addToCartButton.addEventListener("click", function () {
           addToCart(product);
         });
-
         productContainer.appendChild(addToCartButton);
+
+        count++; 
       }
+    }
+
+    if (products.length > 4) {
+      const viewMoreContainer = document.querySelector(".items-container");
+      const viewMoreButton = document.createElement("button");
+      viewMoreButton.textContent = "View More";
+      viewMoreButton.classList.add("view-more-btn");
+      viewMoreButton.addEventListener("click", function () {
+        window.location.href = '/products/index.html';
+      });
+      viewMoreContainer.appendChild(viewMoreButton);
     }
   } catch (error) {
     console.error("Error displaying sale items:", error);
