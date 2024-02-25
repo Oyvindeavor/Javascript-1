@@ -3,6 +3,7 @@ import { getProducts } from "./scripts/utils/fetchdata.mjs";
 import { addToCart, updateCartIcon } from "./scripts/utils/Cart.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "./scripts/utils/loadingSpinner.mjs";
 import { displayErrorMessage } from "./scripts/utils/errorUserMessage.mjs";
+import { setupHamburgerMenu } from "./scripts/utils/hamburgerMenu.mjs";
 
 export async function displaySaleItems() {
   try {
@@ -66,9 +67,10 @@ export async function displaySaleItems() {
   }
 }
 
+
 async function main() {
   showLoadingSpinner();
-
+  setupHamburgerMenu();
   try {
     await updateCartIcon();
     const products = await getProducts();
