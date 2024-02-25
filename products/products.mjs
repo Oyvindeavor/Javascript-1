@@ -4,6 +4,7 @@ import { createCategoryButtons } from "../scripts/utils/CategoryButtons.mjs"; //
 import { updateCartIcon, addToCart } from "/../scripts/utils/cart.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
+import { setupHamburgerMenu } from "../scripts/utils/hamburgerMenu.mjs";
 
 export async function displayProducts(products) {
   try {
@@ -65,6 +66,7 @@ export async function displayProducts(products) {
 
 async function main() {
   try {
+    setupHamburgerMenu();
     showLoadingSpinner();
     await updateCartIcon();
   } catch (error) {
