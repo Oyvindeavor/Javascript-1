@@ -1,7 +1,7 @@
 import { getProducts } from "../scripts/utils/fetchdata.mjs"; // Fetches products from api and returns JSON
 import { createClass, createElement } from "../scripts/utils/domUtils.mjs"; // Creates element and creates class
 import { createCategoryButtons } from "../scripts/utils/CategoryButtons.mjs"; // Creates the category buttons
-import { updateCartIcon, addToCart } from "/../scripts/utils/cart.mjs";
+import { updateCartIcon, addToCart, addToCartButtonConfirmation } from "/../scripts/utils/cart.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 import { showLoadingSpinner, hideLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
 import { setupHamburgerMenu } from "../scripts/utils/hamburgerMenu.mjs";
@@ -46,6 +46,7 @@ export async function displayProducts(products) {
       addToCartButton.textContent = "Add to Cart";
       addToCartButton.addEventListener("click", function () {
         addToCart(product);
+        addToCartButtonConfirmation(this);
       });
 
       anchorElement.appendChild(productImg);
