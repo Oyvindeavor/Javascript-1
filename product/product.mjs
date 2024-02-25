@@ -4,6 +4,7 @@ import { createClass, createElement } from "../scripts/utils/domUtils.mjs";
 import { addToCart } from "../scripts/utils/Cart.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 import { hideLoadingSpinner, showLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
+import { setupHamburgerMenu } from "../scripts/utils/hamburgerMenu.mjs";
 
 
 // Gets the ID from the url
@@ -83,6 +84,7 @@ export async function displayProduct(productId) {
 
 async function main() {
   try {
+    setupHamburgerMenu();
     showLoadingSpinner();
     await updateCartIcon();
   } catch (error) {
