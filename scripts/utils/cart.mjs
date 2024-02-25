@@ -87,6 +87,20 @@ export function cartCounter() {
   return totalQuantity;
 }
 
+// Changes the button text and color when you click it for 1 second.
+export function addToCartButtonConfirmation(button) {
+  const originalText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = "+1";
+  button.style.backgroundColor = "green";
+  setTimeout(() => {
+    button.textContent = originalText;
+    button.style.backgroundColor = "";
+    button.disabled = false;
+  }, 500);
+}
+
 // Updates the cart icon to show number of items in the cart > get the total quantity in local storage from cartCounter()
 // Select the counter graphic > change the text to the quantity
 export async function updateCartIcon() {
