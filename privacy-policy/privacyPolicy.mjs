@@ -3,8 +3,8 @@ import { updateCartIcon } from "../scripts/utils/Cart.mjs";
 
 
 
-function main() {
-    updateCartIcon();
+async function main() {
+    await updateCartIcon();
 }
 
 main();
