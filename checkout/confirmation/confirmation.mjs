@@ -1,6 +1,7 @@
 import { getProducts } from "../../scripts/utils/fetchdata.mjs";
 import { getCartItemsFromStorage, clearAllCartItemsFromStorage, getProductPrice } from "../../scripts/utils/Cart.mjs";
 import { createClass, createElement } from "../../scripts/utils/domUtils.mjs";
+import { setupHamburgerMenu } from "../../scripts/utils/hamburgerMenu.mjs";
 
 async function appendOrderItemsAndTotal() {
   const orderContainer = document.querySelector(".order-details");
@@ -61,6 +62,7 @@ async function appendOrderItemsAndTotal() {
 }
 
 async function main() {
+  setupHamburgerMenu();
   await appendOrderItemsAndTotal();
 }
 
