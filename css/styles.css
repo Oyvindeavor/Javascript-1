@@ -12,7 +12,7 @@
 
 body,
 html {
-    background-color: #3A2A53;
+    background-color: #180D33;
     color: #FFFFFF;
     font-family: 'Inconsolata', monospace;
     font-family: var(--main-font-family);
@@ -48,7 +48,7 @@ body {
 header {
     padding-left: 40px;
     padding-right: 40px;
-    background: #2c3e50;
+    background: #1e1e1e;
 }
 
 main {
@@ -69,7 +69,7 @@ footer {
     bottom: 0;
     left: 0;
     position: relative;
-    background-color: #2c3e50;
+    background-color: #1e1e1e
 
 
 }
@@ -79,16 +79,17 @@ footer {
     max-width: 800px;
     margin: auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #1e1e1e;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 100px;
     margin-bottom: 100px;
+    margin: 20px auto;
 }
 
 .terms-conditions h1,
 .terms-conditions h2 {
-    color: #333;
+    color: #4CAF50;
 }
 
 .terms-conditions p,
@@ -116,12 +117,12 @@ footer {
 .contact-section h1 {
     margin-bottom: 20px;
     font-size: 2.5rem;
-    color: #000000;
+    color: #4CAF50;
 }
 
 .contact-section p {
     margin-bottom: 40px;
-    color: #000000;
+    color: white;
 }
 
 .form-group {
@@ -133,7 +134,7 @@ footer {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #000000;
+    color: white;
 }
 
 .form-group input,
@@ -313,14 +314,40 @@ a
 
 /* Hero Container */
 .hero-container {
+    background-image: url('/assets/5688464_58914.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 30vh; 
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 100px;
 }
 
-.hero-container img {
-    height: 400px;
-    width: 100%;
+.hero-content h1 {
+    font-size: 2.5rem; 
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero-button {
+    background-color: #1e1e1e;; 
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+    background-color: #0056b3;
 }
 
 /* Sale Items Container */
@@ -339,6 +366,7 @@ a
     max-width: 900px;
     margin-top: 40px;
     margin-bottom: 100px;
+    background-color: #1e1e1e;
 }
 
 .sale-text {
