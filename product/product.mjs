@@ -1,11 +1,9 @@
-import { updateCartIcon } from "../scripts/utils/Cart.mjs";
+import { updateCartIcon, addToCart, addToCartButtonConfirmation } from "../scripts/utils/Cart.mjs";
 import { getProducts } from "../scripts/utils/fetchdata.mjs";
 import { createClass, createElement } from "../scripts/utils/domUtils.mjs";
-import { addToCart } from "../scripts/utils/Cart.mjs";
 import { displayErrorMessage } from "../scripts/utils/errorUserMessage.mjs";
 import { hideLoadingSpinner, showLoadingSpinner } from "../scripts/utils/loadingSpinner.mjs";
 import { setupHamburgerMenu } from "../scripts/utils/hamburgerMenu.mjs";
-
 
 // Gets the ID from the url
 export function getIdFromUrl() {
@@ -47,7 +45,10 @@ function generateProductDisplay(product) {
     }
     const addToCartButton = createClass(createElement("button"), "add-to-cart-btn");
     addToCartButton.textContent = "Add to Cart";
-    addToCartButton.addEventListener("click", () => addToCart(product));
+    addToCartButton.addEventListener("click", function () {
+      addToCart(product);
+      addToCartButtonConfirmation(addToCartButton);
+    });
 
     productDetails.appendChild(addToCartButton);
     productContainer.appendChild(productImageContainer);
@@ -58,12 +59,10 @@ function generateProductDisplay(product) {
   }
 }
 
-
 // Function to append product Product HTML elements to the DOM
 function appendProductToDOM(productElement) {
   document.querySelector("main").appendChild(productElement);
 }
-
 
 // Async function to display product
 export async function displayProduct(productId) {
@@ -80,7 +79,6 @@ export async function displayProduct(productId) {
     displayErrorMessage("There was a problem displaying the product, try refreshing the page");
   }
 }
-
 
 async function main() {
   try {
@@ -104,6 +102,5 @@ async function main() {
     hideLoadingSpinner();
   }
 }
-
 
 main();
