@@ -190,12 +190,17 @@ footer {
 }
 
 
-.quick-links {}
 
-.quick-links>h3 {
+.quick-links h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+.quick-links ul{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -229,7 +234,7 @@ footer {
     flex-grow: 1;
 }
 
-.nav-links {
+.nav-links ul{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -239,9 +244,8 @@ footer {
     flex-grow: 1;
 }
 
-.nav-links li {}
 
-.nav-links li a {
+.nav-links > ul > li > a {
     color: #FFFFFF;
     text-decoration: none;
     padding: 10px 20px;
@@ -249,14 +253,15 @@ footer {
     transition: background-color 0.3s ease;
 }
 
-.nav-links li a:hover {
+.nav-links ul li a:hover {
     background-color: #00ff1a;
     color: black;
 }
 
 
 li,
-a {
+a
+ {
     list-style-type: none;
     text-decoration: none;
     font-family: var(--secondFont);
